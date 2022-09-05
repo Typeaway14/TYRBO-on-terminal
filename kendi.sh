@@ -1,7 +1,7 @@
 #!/bin/bash
 #date: 05-09-2022
 #author: Typeaway14
-#purpose: enable or disable the keyboard. originally created for TYRBO(https://github.com/inirah02/TYRBO)
+#purpose: enable or disable the keyboard. originally created for TYRBO-on-terminal(https://github.com/Typeaway14/TYRBO-on-terminal)
 
 VALUE=$1
 #echo $1
