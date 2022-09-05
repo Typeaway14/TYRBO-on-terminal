@@ -8,6 +8,7 @@
         "string.h": "c",
         "menu.h": "c",
         "ncurses.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "type_content.h": "c"
     }
 }
