@@ -3,6 +3,9 @@
 #include"type_content.h"//includes the user defined type_content.h header file
 #include"tc.h"
 #include<string.h>
+#ifdef _WIN32
+    #include<conio.h>
+#endif
 void help();
 int main(int argc,char** argv)
 {
