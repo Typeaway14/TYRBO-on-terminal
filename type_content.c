@@ -7,7 +7,6 @@
     #include<conio.h>//includes conio.h that contains functions like getch()
 #elif __linux__
     #include<sys/ioctl.h>
-    // #include<curses.h>
     #include<unistd.h>//usleep()
     #include <termios.h>
 #endif
