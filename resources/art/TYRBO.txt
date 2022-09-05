@@ -1,0 +1,16 @@
+TTTTTTTTTTTTTTTTTTTTTTTYYYYYYY       YYYYYYYRRRRRRRRRRRRRRRRR   BBBBBBBBBBBBBBBBB        OOOOOOOOO     
+T:::::::::::::::::::::TY:::::Y       Y:::::YR::::::::::::::::R  B::::::::::::::::B     OO:::::::::OO   
+T:::::::::::::::::::::TY:::::Y       Y:::::YR::::::RRRRRR:::::R B::::::BBBBBB:::::B  OO:::::::::::::OO 
+T:::::TT:::::::TT:::::TY::::::Y     Y::::::YRR:::::R     R:::::RBB:::::B     B:::::BO:::::::OOO:::::::O
+TTTTTT  T:::::T  TTTTTTYYY:::::Y   Y:::::YYY  R::::R     R:::::R  B::::B     B:::::BO::::::O   O::::::O
+        T:::::T           Y:::::Y Y:::::Y     R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O
+        T:::::T            Y:::::Y:::::Y      R::::RRRRRR:::::R   B::::BBBBBB:::::B O:::::O     O:::::O
+        T:::::T             Y:::::::::Y       R:::::::::::::RR    B:::::::::::::BB  O:::::O     O:::::O
+        T:::::T              Y:::::::Y        R::::RRRRRR:::::R   B::::BBBBBB:::::B O:::::O     O:::::O
+        T:::::T               Y:::::Y         R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O
+        T:::::T               Y:::::Y         R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O
+        T:::::T               Y:::::Y         R::::R     R:::::R  B::::B     B:::::BO::::::O   O::::::O
+      TT:::::::TT             Y:::::Y       RR:::::R     R:::::RBB:::::BBBBBB::::::BO:::::::OOO:::::::O
+      T:::::::::T          YYYY:::::YYYY    R::::::R     R:::::RB:::::::::::::::::B  OO:::::::::::::OO 
+      T:::::::::T          Y:::::::::::Y    R::::::R     R:::::RB::::::::::::::::B     OO:::::::::OO   
+      TTTTTTTTTTT          YYYYYYYYYYYYY    RRRRRRRR     RRRRRRRBBBBBBBBBBBBBBBBB        OOOOOOOOO     

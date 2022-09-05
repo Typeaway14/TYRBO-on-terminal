@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "cstdio": "c",
+        "tc.h": "c",
+        "io.h": "c",
+        "curses.h": "c",
+        "ioctl.h": "c",
+        "string.h": "c",
+        "menu.h": "c",
+        "ncurses.h": "c",
+        "time.h": "c"
+    }
+}
