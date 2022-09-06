@@ -9,6 +9,9 @@
 void help();
 int main(int argc,char** argv)
 {
+    #ifdef _WIN32
+        // system("init_terminal.bat");
+    #endif
     if(argc==1)
     {
         help();
