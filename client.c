@@ -3,23 +3,28 @@
 #include"type_content.h"//includes the user defined type_content.h header file
 #include"tc.h"
 #include<string.h>
-#ifdef _WIN32
-    #include<conio.h>
-#endif
 void help();
 int main(int argc,char** argv)
 {
-    #ifdef _WIN32
-        // system("init_terminal.bat");
-    #endif
     if(argc==1)
     {
         help();
         return 0;
     }
-    art_disp("resources/art/TYRBO.txt");
     if(argc==2)
     {
+        #ifdef _WIN32
+            if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
+            {
+                system("init_terminal.bat");
+            }
+        #elif __linux__
+            if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
+            {
+                printf("Operation successful! You can turn TYRBO normally now");
+            }
+        #endif
+        art_disp("resources/art/TYRBO.txt");
         if(!(strcmp(argv[1],"n")))//normal mode. actually pass 'n'
         {
             type_disp("This is the normal mode ",24,'n');
@@ -52,5 +57,5 @@ void help()
     printf("n -> Normal Mode\n");
     printf("s -> Sudden Death Mode\n");
     printf("b -> Basketball Mode\n");
-    getch();
+    printf("\nNOTE: IF THIS IS YOUR FIRST TIME RUNNING TYRBO, USE \"tyrbo init\" AND RESTART THE TERMINAL BEFORE USING TYRBO!\n");
 }
