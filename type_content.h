@@ -7,6 +7,9 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y
 void art_disp( char*);
 int bball_dunk();
 void score_save(int gmode,float *wpm,float *acc,float *netwpm,int BBscore);
+char* rand_string(char* ,int ,char*);
+void type_launch(char*,char*,char );
+char rand_mode();
 #ifdef _WIN32
     void caps_check();
 #elif __linux__

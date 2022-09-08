@@ -20,6 +20,52 @@
 // SCORE scores[100];
 int score_n;
 FILE *score_fp;
+char* rand_string(char* fname,int charno,char* sent)
+{
+    FILE *fp=fopen(fname,"r");
+    if(fp==NULL)
+    {
+        printf("failed");
+    }
+    srand(time(NULL));
+    int r=0;
+    while(!(r>0))
+    {
+        r=rand() % 16;
+    }
+    for(int i=0;fp!=NULL && i<r;i++)
+    {
+        fgets(sent,charno,fp);
+    }
+    fclose(fp);
+    return sent;
+}
+void type_launch(char* diff,char* sent,char gmode)
+{
+    strcpy(sent,rand_string(diff,300,sent));
+    int size=strlen(sent)-1;
+    type_disp(sent,size,gmode);
+}
+char rand_mode()
+{
+    srand(time(NULL));
+    int r=0;
+    while(!(r>0))
+    {
+        r=rand() % 3;
+    }
+    switch(r)
+    {
+        case 1:
+            return 'n';
+        case 2:
+            return 's';
+        case 3:
+            return 'b';
+        default:
+            return 'n';
+    }
+}
 int type_disp( char* p,int size, char gmode)
 {
     TC_CLRSCR();
@@ -92,14 +138,14 @@ int type_input(char* p,int size,char gmode)
         {  
             if(gmode=='b')
                 return 0;
-            if(gmode=='d')
+            if(gmode=='s')
             {
                 size=count;
                 break;
             }
             handle_wrong_case(fp,&b,&streak,&count,p,x,y,0);
         }
-        if((gmode=='s') && (streak>0) && (streak%5==0))
+        if((gmode=='b') && (streak>0) && (streak%5==0))
         { 
             TC_MOVE_CURSOR(0,b);
             for(;bball!='\n';)
@@ -174,7 +220,7 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     float wpm=((size/5)/(time_taken/60));
     float acc=((float)size/(float)count)*100;
     float netwpm=wpm*(acc/100);
-    if(gmode!='d')
+    if(gmode!='s')
     {
         printf("\nTime Taken: %s%.2fs%s\nCharacters: %s%d/%d%s",TC_GRN,time_taken,TC_NRM,TC_GRN,++count,size,TC_NRM);
         printf("\nYour WPM was: %s%.1f%s",TC_GRN,wpm,TC_NRM);
@@ -205,13 +251,13 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     {
         // score_save(1,&wpm,&acc,&netwpm,-1);
     }
-    if(gmode=='d')
+    if(gmode=='s')
     {
         TC_CLRSCR();
         TC_MOVE_CURSOR(0,0);
         printf("\nTime Taken: %s%.2fs%s\nCharacters: %s%d%s",TC_GRN,time_taken,TC_NRM,TC_GRN,--count,TC_NRM);
     }
-    else if(gmode=='s')
+    else if(gmode=='b')
     { 
         printf("\nYour Score was: %s%d%s",TC_GRN,BBscore,TC_NRM);
         // score_save(2,&wpm,&acc,&netwpm,BBscore);
