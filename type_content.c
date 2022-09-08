@@ -27,11 +27,17 @@ char* rand_string(char* fname,int charno,char* sent)
     {
         printf("failed");
     }
+    FILE *fpcount=fopen(fname,"r");
+    int lines=0;
+    for(;fgets(sent,300,fpcount);)
+    {
+        lines++;
+    }
     srand(time(NULL));
     int r=0;
     while(!(r>0))
     {
-        r=rand() % 16;
+        r=rand() % lines;
     }
     for(int i=0;fp!=NULL && i<r;i++)
     {

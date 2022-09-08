@@ -22,16 +22,14 @@ int main(int argc,char** argv)
         }
         else if(!(strcmp(argv[2],"h")))
         {
-            // strcpy(diff,"hard.txt");
-            strcpy(diff,"easy.txt");
+            strcpy(diff,"heroic.txt");
         }
         else
         {
-            // strcpy(diff,"moderate.txt");
-            strcpy(diff,"easy.txt");
+            strcpy(diff,"moderate.txt");    
         }
     }
-    if(argc==2)
+    if(argc>=2)
     {
         #ifdef _WIN32
             if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
