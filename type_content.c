@@ -214,6 +214,9 @@ int type_input(char* p,int size,char gmode)
         TC_CLRSCR();
         t = clock() - t;
         float time_taken = ((float)t)/CLOCKS_PER_SEC; // calculate the elapsed time
+        #ifdef __linux__
+            time_taken= ((time_taken)*1000)/2;
+        #endif
         score(time_taken,count,size,gmode,BBscore);
     }
     return 1;
