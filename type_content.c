@@ -142,7 +142,7 @@ int type_input(char* p,int size,char gmode)
         }
         else
         {  
-            if(gmode=='b')
+            if(gmode=='z')
                 return 0;
             if(gmode=='s')
             {
@@ -209,7 +209,7 @@ int type_input(char* p,int size,char gmode)
             }
         }
     }
-    if(gmode!='b')
+    if(gmode!='z')
     {    
         TC_CLRSCR();
         t = clock() - t;
@@ -416,7 +416,7 @@ int bball_dunk()
         usleep(750000);
     #endif
     fclose(frand);
-    return type_disp(tmp,5,'b');
+    return type_disp(tmp,5,'z');
 }
 #ifdef _WIN32
     void caps_check()
