@@ -3,6 +3,7 @@
 #include"type_content.h"//includes the user defined type_content.h header file
 #include"tc.h"
 #include<string.h>
+#include<stdlib.h>
 void help();
 int main(int argc,char** argv)
 {
@@ -39,7 +40,8 @@ int main(int argc,char** argv)
         #elif __linux__
             if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
             {
-                printf("Operation successful! You can use TYRBO normally now");
+                printf("Operation successful! You can use TYRBO normally now\n");
+                // exit(0);
             }
         #endif
         art_disp("resources/art/TYRBO.txt");
