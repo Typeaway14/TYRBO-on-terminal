@@ -17,6 +17,7 @@ Make sure to follow these guidelines to create quality PRs for this repo
   - Request to be assigned to an issue of your interest and do not submit PRs until assigned
   - Tag the issue number in your PRs in the description
   - Add screenshots and description of what you changed in the PR
+  - **MAKE SURE TO DELETE ALL `.o` and `.exe` or `.out` FILES BEFORE COMMITTING. PRs THAT DO NOT COMPLY WITH THIS WILL NOT BE ACCEPTED**
 
 ## Issue Guidelines
 Make sure to follow these guidelines if you wish to create an issue for this repo:
