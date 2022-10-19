@@ -23,27 +23,18 @@ Wanna use TYRBO-on-terminal for yourself?
   1. Download the files or clone them into a directory on your device.
 > Note: Check [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) for help on how to clone a repo using the git        commands.
   2. Launch a terminal in the directory you just cloned into and type in these commands to compile and get all the code ready
-    -For Windows:
-```
-    mingw32-make -f mktyrbo.mk
-```
-    -For Linux:
-```
-    make -f mktyrbo.mk
-```
-  3. Notice a `tyrbo.exe` (or) `tyrbo.out` has been created in the directory.
+- For Windows: `mingw32-make -f mktyrbo.mk`
+- For Linux: `make -f mktyrbo.mk`
+  
+3. Notice a `tyrbo.exe` (or) `tyrbo.out` has been created in the directory.
   4. In the same terminal, type in the following commands to get started with TYRBO-on-terminal!
-```
-   tyrbo
-  (or)
-  ./tyrbo
-```
+`tyrbo` or `./tyrbo`
  
  
 ## Contribution
 So you're the one the prophecies spoke of? The one that will help transform our unfinished code into a full fledged program? You're in the right place..
 Walk through [✨this door✨](/CONTRIBUTING.md) and you shall be briefed on how to contribute to the cause. 
  
->This repository is maintained by [Typeaway14](https://github.com/Typeaway14). A follow is appreciated :)
+>This repository is maintained by [Typeaway14](https://github.com/Typeaway14) and [mukunddeepak](https://github.com/mukunddeepak). A follow is appreciated :)
 
 
