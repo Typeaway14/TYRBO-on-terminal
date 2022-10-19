@@ -38,10 +38,10 @@ Linux:
 ```
  
  
- ## Contribution
- So you're the one the prophecies spoke of? The one that will help transform our unfinished code into a full fledged program? You're in the right place..
- Walk through [✨this door✨](/CONTRIBUTE.md) and you shall be briefed on how to contribute to the cause. 
+## Contribution
+So you're the one the prophecies spoke of? The one that will help transform our unfinished code into a full fledged program? You're in the right place..
+Walk through [✨this door✨](/CONTRIBUTE.md) and you shall be briefed on how to contribute to the cause. 
  
- >This repository is maintained by [Typeaway14](https://github.com/Typeaway14)
+>This repository is maintained by [Typeaway14](https://github.com/Typeaway14)
 
 
