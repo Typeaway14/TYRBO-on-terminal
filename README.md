@@ -1,6 +1,8 @@
 # TYRBO-on-terminal
 ### The Typing Test With A Twist!
 
+![TYRBO-demo (1)](https://user-images.githubusercontent.com/92392779/197035759-e6f39ad1-ac40-44df-a349-271995cb1105.gif)
+
 The terminal based version of TYRBO which is compatible with Linux and Windows both!
 
 TYRBO-on-terminal is a typing test like no other, available right on the terminal on your favourite Operating System! (Unless you're on MacOS :P). Choose any of the following 3 gamemodes and get an analysis of your Typing Skillz! I spelled that with a 'z' so you know we're cool 😎
