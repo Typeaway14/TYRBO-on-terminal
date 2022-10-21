@@ -140,7 +140,9 @@ int type_disp( char* p,int size, char gmode)
             TC_MOVE_CURSOR(x,ycopy);
             strcat(tmp,"  ");
         }
+        //
         printf("%c\xDB",*(p++));
+        //
         printf("\b \b");
     }
     TC_MOVE_CURSOR(x,y);
