@@ -20,46 +20,89 @@
 // SCORE scores[100];
 int score_n;
 FILE *score_fp;
+
+//Function to return random strings from a file
+//with the number of lines of the file as a parameter
 char* rand_string(char* fname,int charno,char* sent)
 {
+    //Opening the file in read form
     FILE *fp=fopen(fname,"r");
+
+    //Display that Openeing of the file failed if the file has NULL content
     if(fp==NULL)
     {
         printf("failed");
     }
+
+    //Opening the file in read form to count the number of lines
     FILE *fpcount=fopen(fname,"r");
+
+    //int variable to count number of lines 
     int lines=0;
+
+    //Loop to count number of lines
     for(;fgets(sent,300,fpcount);)
     {
+        //Incrementing number of lines
         lines++;
     }
+
+    //seeds the random number generator used by the function rand with 
+    //seed as time(NULL) returns the integer value to be used as seed
     srand(time(NULL));
+
+    //int variable r to store random variable in an iteration
     int r=0;
+
+    //Loop to iterate until r is greater than 0
     while(!(r>0))
     {
+        //r is assigned to a random number from 0 to number of lines in fpcount 
         r=rand() % lines;
     }
+
+    //Loop to iterate until fp's contents are not all read and
+    //Iteration count is lesser than the random variable
     for(int i=0;fp!=NULL && i<r;i++)
     {
         fgets(sent,charno,fp);
     }
+
+    //closing file fp
     fclose(fp);
+
+    //Returning the random strings
     return sent;
 }
+
+//Function to copy code from the file and copy it onto the
+//place to be typed on
 void type_launch(char* diff,char* sent,char gmode)
 {
     strcpy(sent,rand_string(diff,300,sent));
     int size=strlen(sent)-1;
     type_disp(sent,size,gmode);
 }
+
+//Function to return a character based on a random parameter
+//ranging from 0 to 3
 char rand_mode()
 {
+    //seeds the random number generator used by the function rand with 
+    //seed as time(NULL) returns the integer value to be used as seed    
     srand(time(NULL));
+
+    //int variable r to store random variable in an iteration
     int r=0;
+
+    //Loop to iterate until r is greater than 0
     while(!(r>0))
     {
+        //r is assigned to a random number from 0 to 3 of lines in fpcount 
         r=rand() % 3;
     }
+
+    //Conditional statement to return character based on random number from 0-3
     switch(r)
     {
         case 1:
@@ -72,6 +115,8 @@ char rand_mode()
             return 'n';
     }
 }
+
+//Function to display type utilizing type_input function
 int type_disp( char* p,int size, char gmode)
 {
     TC_CLRSCR();
@@ -99,6 +144,8 @@ int type_disp( char* p,int size, char gmode)
     TC_MOVE_CURSOR(x,y);
     return type_input(tmp,size,gmode);
 }
+
+//Function to check typing input 
 int type_input(char* p,int size,char gmode)
 {
     #ifdef _WIN32
@@ -121,16 +168,21 @@ int type_input(char* p,int size,char gmode)
     int b=1;
     for(;((*(p+1))!='\0')&&(ch=getch());)
     {
+        //Checking caps
         #ifdef _WIN32
             caps_check();
         #elif __linux__
             system("kendi.sh 0");
         #endif
+
+
         if(tmp)
         {
             t=clock();
             tmp--;
         }
+
+
         if(ch==*p)
         {
             TC_MOVE_CURSOR(x,y);
@@ -140,6 +192,8 @@ int type_input(char* p,int size,char gmode)
             trimTrailing(p);
             streak++;
         }
+
+
         else
         {  
             if(gmode=='z')
@@ -151,6 +205,8 @@ int type_input(char* p,int size,char gmode)
             }
             handle_wrong_case(fp,&b,&streak,&count,p,x,y,0);
         }
+
+
         if((gmode=='b') && (streak>0) && (streak%5==0))
         { 
             TC_MOVE_CURSOR(0,b);
@@ -221,45 +277,74 @@ int type_input(char* p,int size,char gmode)
     }
     return 1;
 }
+
+//Function to find score of typing speed test
 void score(float time_taken,int count,int size,char gmode,int BBscore)
 {
+    //Displaying the text using escape sequence escape character
     printf("\e[?25l");
+
+    //Moving cursor from 0 to 0
     TC_MOVE_CURSOR(0,0);
+
+    //Increasing the count received through the argument
     count++;
+
+    //Finding word per minute
     float wpm=((size/5)/(time_taken/60));
+
+    //Finding accuracy of the typing
     float acc=((float)size/(float)count)*100;
+
+    //Finding net word per minute
     float netwpm=wpm*(acc/100);
+
     if(gmode!='s')
-    {
+    {   
+        //Displaying details of time taken to type, words per minute 
+        //and words per minute after checking accuracy
         printf("\nTime Taken: %s%.2fs%s\nCharacters: %s%d/%d%s",TC_GRN,time_taken,TC_NRM,TC_GRN,++count,size,TC_NRM);
         printf("\nYour WPM was: %s%.1f%s",TC_GRN,wpm,TC_NRM);
         printf("\nYour net WPM was: %s%.1f%s",TC_GRN,netwpm,TC_NRM);
+
+        //conditional statement for 100% accuracy  
         if(acc==100.0)
         {
             printf("\nYour accuracy was: %s",TC_CYN);
         }
+
+        //conditional statement for >=95.0% accuracy
         else if(acc>=95.0)
         {
             printf("\nYour accuracy was: %s",TC_MAG);
         }
+
+        //conditional statement for >=90.0 && <95.0 accuracy
         else if(acc>=90.0 && acc<95.0)
         {
             printf("\nYour accuracy was: %s",TC_GRN);
         }
+
+        //conditional statement for >=80.0 && acc<90.0 accuracy
         else if(acc>=80.0 && acc<90.0)
         {
             printf("\nYour accuracy was: %s",TC_YEL);
         }
+
+        //conditional statement for <80 accuracy
         else
         {
             printf("\nYour accuracy was: %s",TC_RED);
         }
         printf("%.1f%c%s",acc,'%',TC_NRM);
     }
+
+    //Conditional statements based on the random characters from function rand_mode
     if(gmode=='n')
     {
         // score_save(1,&wpm,&acc,&netwpm,-1);
     }
+
     if(gmode=='s')
     {
         TC_CLRSCR();
@@ -271,7 +356,12 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
         printf("\nYour Score was: %s%d%s",TC_GRN,BBscore,TC_NRM);
         // score_save(2,&wpm,&acc,&netwpm,BBscore);
     }
+
+    //To continue after results
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
+
+    //Delaying the script execution based on operating system being 
+    //Windows or Linux
     #ifdef _WIN32
         Sleep(1500);
     #elif __linux__
@@ -279,6 +369,8 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     #endif
     getch();
 }
+
+//Function to encounter spaces, tabs and next lines
 void trimTrailing(char * str)
 {
     printf("\e[?25l");
@@ -295,6 +387,8 @@ void trimTrailing(char * str)
     }
     str[index + 2] = '\0';//Mark next character to last non-white space character as NULL
 }
+
+//Function to check wrong cases and highlight them red
 int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y,int color)
 {
     TC_CLRSCR();
@@ -322,6 +416,8 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y
     *count+=1;
     return 1;
 }
+
+//Function to display the text chosen randomly from the database of files
 void art_disp(char *filename)
 {
     printf("\e[?25l");
@@ -349,22 +445,32 @@ void art_disp(char *filename)
     // }
     fclose(fp);
 }
+
+//Function to find whether 
 int bball_dunk()
 {
     #ifdef __linux__
         system("kendi.sh 1");
     #endif
+
+    //Opening file resources/Dunk_words.csv in read mode
     FILE *frand;
     frand=fopen("resources/Dunk_words.csv","r");
+
     srand(time(NULL));
     int r=0;
+
+    //Loop to iterate until r is not greater than zero
     while(!(r>0))
     {
+        //r is assigned to a random number from 0 to 3 of lines in fpcount
         r=rand() % 213;
     }
     char ch[1500];
     char tmp[6];
     // char tmp2[6];
+
+    //Conditional statement to check if resources file is not equal to NULL
     if(fgets(ch,1500,frand)==NULL)
     {
         TC_CLRSCR();
@@ -375,11 +481,17 @@ int bball_dunk()
             usleep(200000);
         #endif
     } 
+
+    //Converting string to token
     char* tmp2=strtok(ch,",");
+
+    //Checking if token is NULL and copying value to tmp
     if(tmp2!=NULL)
     {
         strcpy(tmp,tmp2);
     }
+
+    //If token is not null printing message that something went wrong and delaying
     else
     {
         TC_CLRSCR();
@@ -390,6 +502,8 @@ int bball_dunk()
             usleep(200000);
         #endif
     }
+
+    //Loop to iterate from 0 to random value - 1
     for(int i=0;i<=r-1;i++)
     {
         tmp2=strtok(NULL,",");
@@ -418,6 +532,8 @@ int bball_dunk()
     fclose(frand);
     return type_disp(tmp,5,'z');
 }
+
+//Defing conditions for Windows OS to find Caps
 #ifdef _WIN32
     void caps_check()
     {
@@ -434,6 +550,8 @@ int bball_dunk()
             printf("               ");
         }
     }
+
+//Defining conditions for Linux OS to Caps
 #elif __linux__
     char getch(void)
     {
