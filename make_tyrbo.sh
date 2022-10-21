@@ -1,0 +1,3 @@
+echo compiling tyrbo...
+make -f mktyrbo.mk
+echo to run tyrbo: ./tyrbo

@@ -6,7 +6,3 @@ client.o: client.c
 	gcc -c -g client.c
 tc.o: tc.c
 	gcc -c -g tc.c
-
-.PHONY: clean
-clean:
-	rm *.o tyrbo

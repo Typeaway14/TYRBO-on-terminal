@@ -18,8 +18,6 @@
 // #include"user_manage.h"//includes the user defined user_manage.h header file
 #include"tc.h"
 // SCORE scores[100];
-
-void caps_check();
 int score_n;
 FILE *score_fp;
 char* rand_string(char* fname,int charno,char* sent)
@@ -123,7 +121,11 @@ int type_input(char* p,int size,char gmode)
     int b=1;
     for(;((*(p+1))!='\0')&&(ch=getch());)
     {
-        caps_check();
+        #ifdef _WIN32
+            caps_check();
+        #elif __linux__
+           // system("kendi.sh 0");
+        #endif
         if(tmp)
         {
             t=clock();
@@ -188,13 +190,17 @@ int type_input(char* p,int size,char gmode)
                     // clear_instream();
                 #endif
                 TC_CLRSCR();
-                caps_check();
+                #ifdef _WIN32
+                    caps_check();
+                #endif
                 ungetc('\n',stdin);
                 ch=getc(stdin);
                 count--;
                 handle_wrong_case(fp,&b,&streak,&count,p,x,y,1);
                 TC_CLRSCR();
-                caps_check();
+                #ifdef _WIN32
+                    caps_check();
+                #endif
                 TC_MOVE_CURSOR(x,y);
                 printf("%s",p);
                 #ifdef __linux__
@@ -292,7 +298,9 @@ void trimTrailing(char * str)
 int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y,int color)
 {
     TC_CLRSCR();
-    caps_check();
+    #ifdef _WIN32
+        caps_check();
+    #endif
     fseek(fp,0,SEEK_SET);
     *b=0;
     TC_MOVE_CURSOR(x,y); 
@@ -410,37 +418,23 @@ int bball_dunk()
     fclose(frand);
     return type_disp(tmp,5,'z');
 }
-
-void caps_check()
-{
-    int rows=0,columns=0;
-    termsize(&rows,&columns);
 #ifdef _WIN32
-    if (GetKeyState(VK_CAPITAL) & 1)
-#endif
-#ifdef __linux__
-    FILE* p = popen("xset -q | grep \"Caps Lock\" | cut -d\" \" -f10", "r");
-    if (!p) {
-        printf("INSTALL xset");
-    }
-    char result[8];
-    if (fgets(result, 8, p) == NULL) {
-        printf("SOMETHING WENT WRONG");
-    }
-    pclose(p);
-    if (result[0] == 'o' && result[1] == 'n')
-#endif
+    void caps_check()
     {
-        TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
-        printf("CAPS LOCK IS ON");
+        int rows=0,columns=0;
+        termsize(&rows,&columns);
+        if (GetKeyState(VK_CAPITAL) & 1)
+        {
+            TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
+            printf("CAPS LOCK IN ON");
+        }
+        else
+        {
+            TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
+            printf("               ");
+        }
     }
-    else
-    {
-        TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
-        printf("               ");
-    }
-}
-#ifdef __linux__
+#elif __linux__
     char getch(void)
     {
         char buf = 0;
