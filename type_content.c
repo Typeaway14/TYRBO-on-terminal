@@ -18,6 +18,8 @@
 // #include"user_manage.h"//includes the user defined user_manage.h header file
 #include"tc.h"
 // SCORE scores[100];
+
+void caps_check();
 int score_n;
 FILE *score_fp;
 
@@ -151,7 +153,7 @@ int type_input(char* p,int size,char gmode)
     #ifdef _WIN32
         CLEAR_INSTREAM;
     #elif __linux__
-        system("kendi.sh 0");
+        //system("kendi.sh 0");
     #endif
     printf("\e[?25l");
     clock_t t;
@@ -168,14 +170,7 @@ int type_input(char* p,int size,char gmode)
     int b=1;
     for(;((*(p+1))!='\0')&&(ch=getch());)
     {
-        //Checking caps
-        #ifdef _WIN32
-            caps_check();
-        #elif __linux__
-            system("kendi.sh 0");
-        #endif
-
-
+        caps_check();
         if(tmp)
         {
             t=clock();
@@ -222,7 +217,7 @@ int type_input(char* p,int size,char gmode)
                 if(bball_dunk())
                 {
                     #ifdef __linux__
-                        system("kendi.sh 1");
+                      //  system("kendi.sh 1");
                     #endif
                     art_disp("resources/art/BB_Dunk.txt");
                     BBscore+=25;
@@ -230,7 +225,7 @@ int type_input(char* p,int size,char gmode)
                 else
                 {
                     #ifdef __linux__
-                        system("kendi.sh 1");
+                       // system("kendi.sh 1");
                     #endif
                     art_disp("resources/art/OOF.txt");
                     BBscore+=5;
@@ -246,21 +241,17 @@ int type_input(char* p,int size,char gmode)
                     // clear_instream();
                 #endif
                 TC_CLRSCR();
-                #ifdef _WIN32
-                    caps_check();
-                #endif
+                caps_check();
                 ungetc('\n',stdin);
                 ch=getc(stdin);
                 count--;
                 handle_wrong_case(fp,&b,&streak,&count,p,x,y,1);
                 TC_CLRSCR();
-                #ifdef _WIN32
-                    caps_check();
-                #endif
+                caps_check();
                 TC_MOVE_CURSOR(x,y);
                 printf("%s",p);
                 #ifdef __linux__
-                    system("kendi.sh 0");
+                //    system("kendi.sh 0");
                 #endif
             }
         }
@@ -392,9 +383,7 @@ void trimTrailing(char * str)
 int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y,int color)
 {
     TC_CLRSCR();
-    #ifdef _WIN32
-        caps_check();
-    #endif
+    caps_check();
     fseek(fp,0,SEEK_SET);
     *b=0;
     TC_MOVE_CURSOR(x,y); 
@@ -450,7 +439,7 @@ void art_disp(char *filename)
 int bball_dunk()
 {
     #ifdef __linux__
-        system("kendi.sh 1");
+      //  system("kendi.sh 1");
     #endif
 
     //Opening file resources/Dunk_words.csv in read mode
@@ -534,25 +523,39 @@ int bball_dunk()
 }
 
 //Defing conditions for Windows OS to find Caps
+void caps_check()
+{
+    int rows=0,columns=0;
+    termsize(&rows,&columns);
 #ifdef _WIN32
-    void caps_check()
+    if (GetKeyState(VK_CAPITAL) & 1)
+#endif
+#ifdef __linux__
+    FILE* p = popen("xset -q | grep \"Caps Lock\" | cut -d\" \" -f10", "r");
+    if (!p) {
+        printf("INSTALL xset");
+    }
+    char result[8];
+    if (fgets(result, 8, p) == NULL) {
+        printf("SOMETHING WENT WRONG");
+    }
+    pclose(p);
+    if (result[0] == 'o' && result[1] == 'n')
+#endif
     {
-        int rows=0,columns=0;
-        termsize(&rows,&columns);
-        if (GetKeyState(VK_CAPITAL) & 1)
-        {
-            TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
-            printf("CAPS LOCK IN ON");
-        }
-        else
-        {
-            TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
-            printf("               ");
-        }
+        TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
+        printf("CAPS LOCK IS ON");
     }
 
 //Defining conditions for Linux OS to Caps
-#elif __linux__
+
+    else
+    {
+        TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
+        printf("               ");
+    }
+}
+#ifdef __linux__
     char getch(void)
     {
         char buf = 0;
