@@ -7,6 +7,7 @@ This project contains the following files:
   - `type_content.h`: Contains header files of the functions defined in `type_content.c`
   - `tc.c`: Contains all the functions required for controlling the cursor and output on the terminal
   - `tc.h`: Contains header files of the functions defined in `tc.c` and the macros for terminal control
+  - `mktyrbo.sh`: Shell script to compile the code / clean the output files. Invokes `make -f mktyrbo.mk`
   - `init_terminal.bat`: Batchfile to configure the terminal on windows to accept utf-8 encoding characters
   - `kendi.sh`: THIS WILL NOT WORK ON ALL DEVICES. Script file that disables the keyboard on linux. Not the best implementation as it's hardcoded to work only for Repo owner's device
 

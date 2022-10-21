@@ -7,7 +7,7 @@ elif [[ $1 == 'clean' ]]; then
     make -f mktyrbo.mk clean
     echo done!
 else
-    echo ./make_tyrbo.sh usage:
-    echo ./make_tyrbo.sh compile \# to compile tyrbo
-    echo ./make_tyrbo.sh clean \# to clean output files
+    echo ./mktyrbo.sh usage:
+    echo ./mktyrbo.sh compile \# to compile tyrbo
+    echo ./mktyrbo.sh clean \# to clean output files
 fi
