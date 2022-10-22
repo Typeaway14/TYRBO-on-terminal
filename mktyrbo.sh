@@ -1,8 +1,8 @@
-if [[ $1 == 'compile' ]]; then
+if [ $1=="compile" ]; then
     echo compiling tyrbo...
     make -f mktyrbo.mk
     echo to run tyrbo: ./tyrbo
-elif [[ $1 == 'clean' ]]; then
+elif [ $1=="clean" ]; then
     echo cleaning intermediate and target files...
     make -f mktyrbo.mk clean
     echo done!
