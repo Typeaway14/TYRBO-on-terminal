@@ -18,9 +18,21 @@ int termsize(int *rows,int *columns)
 }
 void coord_details(int *rows, int* columns, int *x, int *y, int size)
 {
-    termsize(rows,columns);
-    *x=(size>*columns)?0:((*columns-size)/2);
-    *y=((*rows/2)>16)?(*rows/2):16;
+    int flag = 0;
+    if(bball_dunk()){
+        flag = 1;
+    }
+
+    if(flag == 1)
+    {
+        *x = 0;
+        *y = 0;
+    }
+    else{
+        termsize(rows,columns);
+        *x=(size>*columns)?0:((*columns-size)/2);
+        *y=((*rows/2)>16)?(*rows/2):16;
+    }
 }
 #ifdef __linux__
 void clear_instream()
