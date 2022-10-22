@@ -155,7 +155,7 @@ int type_input(char* p,int size,char gmode)
     #ifdef _WIN32
         CLEAR_INSTREAM;
     #elif __linux__
-        //system("kendi.sh 0");
+        system("kendi.sh 0");
     #endif
     printf("\e[?25l");
     clock_t t;
@@ -219,7 +219,7 @@ int type_input(char* p,int size,char gmode)
                 if(bball_dunk())
                 {
                     #ifdef __linux__
-                      //  system("kendi.sh 1");
+                        system("kendi.sh 1");
                     #endif
                     art_disp("resources/art/BB_Dunk.txt");
                     BBscore+=25;
@@ -227,7 +227,7 @@ int type_input(char* p,int size,char gmode)
                 else
                 {
                     #ifdef __linux__
-                       // system("kendi.sh 1");
+                       system("kendi.sh 1");
                     #endif
                     art_disp("resources/art/OOF.txt");
                     BBscore+=5;
@@ -253,7 +253,7 @@ int type_input(char* p,int size,char gmode)
                 TC_MOVE_CURSOR(x,y);
                 printf("%s",p);
                 #ifdef __linux__ 
-                    system("sudo chmod +x kendi.sh");
+                    system("chmod +x kendi.sh");
                     system("kendi.sh 0");
 
                 #endif
