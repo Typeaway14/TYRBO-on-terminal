@@ -41,7 +41,7 @@ int main(int argc,char** argv)
             if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
             {
                 printf("Operation successful! You can use TYRBO normally now\n");
-                // exit(0);
+                exit(0);
             }
         #endif
         art_disp("resources/art/TYRBO.txt");
