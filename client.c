@@ -7,15 +7,15 @@
 void help();
 int main(int argc,char** argv)
 {
-    char sent[300];
+    char sent[300];     //array to accept sent text
     char gmode;
-    char diff[50]="easy.txt";
+    char diff[50]="easy.txt";   // default difficulty level
     if(argc==1)
     {
         help();
         return 0;
     }
-    if(argc==3)
+    if(argc==3)     // choosing difficulty level through CLA
     {
         if(!(strcmp(argv[2],"e")))
         {
@@ -49,13 +49,14 @@ int main(int argc,char** argv)
         if(argv[1][0]=='s' || argv[1][0]=='n' || argv[1][0]=='b')
             gmode=argv[1][0];
     }
-    type_launch(diff,sent,gmode);
+    type_launch(diff,sent,gmode);   // launch the typing app with the chosen difficulty
     TC_CLRSCR();
     art_disp("resources/art/TYRBO.txt");
     TC_CLRSCR();
     TC_MOVE_CURSOR(0,0);
     return 0;
 }
+// help menu function
 void help()
 {
     printf("TYRBO-on-terminal Help:\n");

@@ -532,6 +532,7 @@ void caps_check()
 #ifdef _WIN32
     if (GetKeyState(VK_CAPITAL) & 1)
 #endif
+// linux based functions
 #ifdef __linux__
     FILE* p = popen("xset -q | grep \"Caps Lock\" | cut -d\" \" -f10", "r");
     if (!p) {
@@ -557,6 +558,7 @@ void caps_check()
         printf("               ");
     }
 }
+// linux based functions
 #ifdef __linux__
     char getch(void)
     {
