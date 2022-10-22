@@ -213,7 +213,7 @@ int type_input(char* p,int size,char gmode)
                 printf("%s",p);
                 #ifdef __linux__
                 //    system("kendi.sh 0");
-                // enable_keys();
+                enable_keys();
                 #endif
             }
         }
@@ -419,9 +419,9 @@ int bball_dunk()
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
     #ifdef _WIN32
-        Sleep(750);
+        Sleep(1250);
     #elif __linux__
-        usleep(750000);
+        usleep(1250000);
     #endif
     fclose(frand);
     return type_disp(tmp,5,'z');
