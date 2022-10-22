@@ -185,7 +185,7 @@ int type_input(char* p,int size,char gmode)
                 #ifdef _WIN32
                     CLEAR_INSTREAM;
                 #elif __linux__
-                    // clear_instream();
+                    clear_instream();
                 #endif
                 TC_CLRSCR();
                 caps_check();
@@ -197,8 +197,10 @@ int type_input(char* p,int size,char gmode)
                 caps_check();
                 TC_MOVE_CURSOR(x,y);
                 printf("%s",p);
-                #ifdef __linux__
-                //    system("kendi.sh 0");
+                #ifdef __linux__ 
+                    system("sudo chmod +x kendi.sh");
+                    system("kendi.sh 0");
+
                 #endif
             }
         }
@@ -344,7 +346,7 @@ void art_disp(char *filename)
 int bball_dunk()
 {
     #ifdef __linux__
-      //  system("kendi.sh 1");
+       system("kendi.sh 1");
     #endif
     FILE *frand;
     frand=fopen("resources/Dunk_words.csv","r");
