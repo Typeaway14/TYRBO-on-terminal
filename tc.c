@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include"tc.h"
 #include"type_content.h"
+#include <termios.h>
+#include <unistd.h>
+#include <stdlib.h>
 int termsize(int *rows,int *columns)
 {
     #ifdef _WIN32
@@ -26,6 +29,9 @@ void coord_details(int *rows, int* columns, int *x, int *y, int size)
 void clear_instream()
 {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF) { }
+    while ((c = getchar()) != '\n' && c != EOF) { 
+        tcdrain(c);
+        tcflush(c, TCIFLUSH);
+    }
 }
 #endif
