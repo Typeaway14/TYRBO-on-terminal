@@ -19,6 +19,15 @@
 #include"tc.h"
 // SCORE scores[100];
 
+#ifdef __linux__
+    void enable_keys() {
+        system("setxkbmap");
+    }
+    void disable_keys() {
+        system("for i in {8..255}; do xmodmap -e \"keycode $i = 0x0000\"; done");
+    }
+#endif
+
 void caps_check();
 int score_n;
 FILE *score_fp;
@@ -107,6 +116,7 @@ int type_input(char* p,int size,char gmode)
         CLEAR_INSTREAM;
     #elif __linux__
         //system("kendi.sh 0");
+        enable_keys();
     #endif
     printf("\e[?25l");
     clock_t t;
@@ -165,16 +175,20 @@ int type_input(char* p,int size,char gmode)
                 {
                     #ifdef __linux__
                       //  system("kendi.sh 1");
+                      disable_keys();
                     #endif
                     art_disp("resources/art/BB_Dunk.txt");
+                    enable_keys();
                     BBscore+=25;
                 }
                 else
                 {
                     #ifdef __linux__
                        // system("kendi.sh 1");
+                       disable_keys();
                     #endif
                     art_disp("resources/art/OOF.txt");
+                    enable_keys();
                     BBscore+=5;
                 }
                 #ifdef _WIN32
@@ -199,6 +213,7 @@ int type_input(char* p,int size,char gmode)
                 printf("%s",p);
                 #ifdef __linux__
                 //    system("kendi.sh 0");
+                // enable_keys();
                 #endif
             }
         }
@@ -345,6 +360,7 @@ int bball_dunk()
 {
     #ifdef __linux__
       //  system("kendi.sh 1");
+      disable_keys();
     #endif
     FILE *frand;
     frand=fopen("resources/Dunk_words.csv","r");
