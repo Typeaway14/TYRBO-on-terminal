@@ -409,7 +409,7 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y
 }
 
 //Function to display the text chosen randomly from the database of files
-void art_disp(char *filename)
+void *art_disp(char *filename)
 {
     printf("\e[?25l");
     FILE *fp;
@@ -516,9 +516,10 @@ int bball_dunk()
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
     #ifdef _WIN32
-        Sleep(750);
+        Sleep(750)
     #elif __linux__
-        usleep(750000);
+        // tcflush(STDOUT_FILENO, TCIOFLUSH);
+        sleep(750000);
     #endif
     fclose(frand);
     return type_disp(tmp,5,'z');
