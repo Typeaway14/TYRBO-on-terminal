@@ -532,9 +532,9 @@ int bball_dunk()
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
     #ifdef _WIN32
-        Sleep(1250);
+        Sleep(750);
     #elif __linux__
-        usleep(1250000);
+        usleep(750000);
     #endif
     fclose(frand);
     return type_disp(tmp,5,'z');
