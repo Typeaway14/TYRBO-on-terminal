@@ -1,7 +1,7 @@
 //The client code that contains the main function
 #include<stdio.h>
-#include"type_content.h"//includes the user defined type_content.h header file
-#include"tc.h"
+#include"resources/headers/tc.h"
+#include"resources/headers/type_content.h"
 #include<string.h>
 #include<stdlib.h>
 void help();
@@ -9,7 +9,7 @@ int main(int argc,char** argv)
 {
     char sent[300];
     char gmode;
-    char diff[50]="easy.txt";
+    char diff[100]="resources/test_strings/easy.txt";
     if(argc==1)
     {
         help();
@@ -19,15 +19,15 @@ int main(int argc,char** argv)
     {
         if(!(strcmp(argv[2],"e")))
         {
-            strcpy(diff,"easy.txt");
+            strcpy(diff,"resources/test_strings/easy.txt");
         }
         else if(!(strcmp(argv[2],"h")))
         {
-            strcpy(diff,"heroic.txt");
+            strcpy(diff,"resources/test_strings/heroic.txt");
         }
         else
         {
-            strcpy(diff,"moderate.txt");    
+            strcpy(diff,"resources/test_strings/moderate.txt");    
         }
     }
     if(argc>=2)

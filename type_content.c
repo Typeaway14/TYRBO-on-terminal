@@ -14,9 +14,9 @@
 #include<time.h>
 #include<stdlib.h>
 // #include"menu.h"
-#include"type_content.h"//includes the user defined type_content.h header file
+#include"resources/headers/type_content.h"//includes the user defined type_content.h header file
 // #include"user_manage.h"//includes the user defined user_manage.h header file
-#include"tc.h"
+#include"resources/headers/tc.h"
 // SCORE scores[100];
 
 #ifdef __linux__
