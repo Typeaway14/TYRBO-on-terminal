@@ -25,13 +25,3 @@ void coord_details(int *rows, int* columns, int *x, int *y, int size)
     *x=(size>*columns)?0:((*columns-size)/2);
     *y=((*rows/2)>16)?(*rows/2):16;
 }
-#ifdef __linux__
-void clear_instream()
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) { 
-        tcdrain(c);
-        tcflush(c, TCIFLUSH);
-    }
-}
-#endif
