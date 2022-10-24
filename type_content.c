@@ -233,7 +233,9 @@ int type_input(char* p,int size,char gmode)
                       disable_keys();
                     #endif
                     art_disp("resources/art/BB_Dunk.txt");
-                    enable_keys();
+                    #ifdef __linux__
+                        enable_keys();
+                    #endif
                     BBscore+=25;
                 }
                 else
@@ -243,7 +245,9 @@ int type_input(char* p,int size,char gmode)
                        disable_keys();
                     #endif
                     art_disp("resources/art/OOF.txt");
-                    enable_keys();
+                    #ifdef __linux__
+                        enable_keys();
+                    #endif
                     BBscore+=5;
                 }
                 #ifdef _WIN32

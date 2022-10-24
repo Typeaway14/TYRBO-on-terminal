@@ -1,7 +1,9 @@
 #include<stdio.h>
 #include"tc.h"
 #include"type_content.h"
-#include <termios.h>
+#ifdef __linux__
+    #include <termios.h>
+#endif
 #include <unistd.h>
 #include <stdlib.h>
 int termsize(int *rows,int *columns)
