@@ -9,7 +9,7 @@ This project contains the following files:
   - `tc.h`: Contains header files of the functions defined in `tc.c` and the macros for terminal control
   - `mktyrbo.sh`: Shell script to compile the code / clean the output files. Invokes `make -f mktyrbo.mk`
   - `init_terminal.bat`: Batchfile to configure the terminal on windows to accept utf-8 encoding characters
-  - ~~`kendi.sh`: THIS WILL NOT WORK ON ALL DEVICES. Script file that disables the keyboard on linux. Not the best implementation as it's hardcoded to work only for Repo owner's device~~ This script is not needed anymore! :D
+  - ~~`kendi.sh`: THIS WILL NOT WORK ON ALL DEVICES. Script file that disables the keyboard on linux. Not the best implementation as it's hardcoded to work only for Repo owner's device~~ This script is not needed anymore! Leaving it here for a while though :D
 
 
 ## PR Guidelines
@@ -19,6 +19,7 @@ Make sure to follow these guidelines to create quality PRs for this repo
   - Tag the issue number in your PRs in the description
   - Add screenshots and description of what you changed in the PR
   - **MAKE SURE TO DELETE ALL `.o` and `.exe` or `.out` FILES BEFORE COMMITTING. PRs THAT DO NOT COMPLY WITH THIS WILL NOT BE ACCEPTED**
+  - To do this, add the command "clean" after the compile instructions. eg: `mktyrbo clean` or `./mktyrbo.sh clean`
 
 ## Issue Guidelines
 Make sure to follow these guidelines if you wish to create an issue for this repo:

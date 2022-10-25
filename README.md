@@ -25,8 +25,8 @@ Wanna use TYRBO-on-terminal for yourself?
   1. Download the files or clone them into a directory on your device.
 > Note: Check [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) for help on how to clone a repo using the git        commands.
   2. Launch a terminal in the directory you just cloned into and type in these commands to compile and get all the code ready
-- For Windows: `mingw32-make -f mktyrbo.mk`
-- For Linux: Simply run `./mktyrbo.sh` :D
+- For Windows: `mktyrbo`
+- For Linux: `./mktyrbo.sh`
   
 3. Notice a `tyrbo.exe` (or) `tyrbo.out` has been created in the directory.
   4. In the same terminal, type in the following commands to get started with TYRBO-on-terminal!

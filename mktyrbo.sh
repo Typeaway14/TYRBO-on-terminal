@@ -1,10 +1,10 @@
-if [[ $1 == 'compile' ]]; then
+if [[ $1 == '' ]]; then
     echo compiling tyrbo...
-    make -f resources/mktyrbo.mk
+    make -f resources/lib/mktyrbo.mk
     echo to run tyrbo: ./tyrbo
 elif [[ $1 == 'clean' ]]; then
     echo cleaning intermediate and target files...
-    make -f mktyrbo.mk clean
+    make -f resources/lib/mktyrbo.mk clean
     echo done!
 else
     echo Usage:
