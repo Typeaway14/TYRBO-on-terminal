@@ -25,7 +25,7 @@
     }
     void disable_keys() {
         system("for i in {8..255}; do xmodmap -e \"keycode $i = 0x0000\"; done");
-    }
+    }   
 #endif
 
 void caps_check();
@@ -165,7 +165,8 @@ int type_input(char* p,int size,char gmode)
         CLEAR_INSTREAM;
     #elif __linux__
         //system("kendi.sh 0");
-        enable_keys();
+        // enable_keys();
+        clear_instream();
     #endif
     printf("\e[?25l");
     clock_t t;
@@ -230,11 +231,11 @@ int type_input(char* p,int size,char gmode)
                 {
                     #ifdef __linux__
                       //  system("kendi.sh 1");
-                      disable_keys();
+                    //   disable_keys();
                     #endif
                     art_disp("resources/art/BB_Dunk.txt");
                     #ifdef __linux__
-                        enable_keys();
+                        // enable_keys();
                     #endif
                     BBscore+=25;
                 }
@@ -242,11 +243,11 @@ int type_input(char* p,int size,char gmode)
                 {
                     #ifdef __linux__
                        // system("kendi.sh 1");
-                       disable_keys();
+                    //    disable_keys();
                     #endif
                     art_disp("resources/art/OOF.txt");
                     #ifdef __linux__
-                        enable_keys();
+                        // enable_keys();
                     #endif
                     BBscore+=5;
                 }
@@ -259,6 +260,7 @@ int type_input(char* p,int size,char gmode)
                     CLEAR_INSTREAM;
                 #elif __linux__
                     // clear_instream();
+                    clear_instream();
                 #endif
                 TC_CLRSCR();
                 caps_check();
@@ -272,7 +274,7 @@ int type_input(char* p,int size,char gmode)
                 printf("%s",p);
                 #ifdef __linux__
                 //    system("kendi.sh 0");
-                enable_keys();
+                // enable_keys();
                 #endif
             }
         }
@@ -369,15 +371,22 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
         // score_save(2,&wpm,&acc,&netwpm,BBscore);
     }
 
-    //To continue after results
-    printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
-
     //Delaying the script execution based on operating system being 
     //Windows or Linux
     #ifdef _WIN32
         Sleep(1500);
     #elif __linux__
         usleep(1500000);
+    #endif
+    
+    //To continue after results
+    printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
+    #ifdef _WIN32
+        CLEAR_INSTREAM;
+    #elif __linux__
+        //system("kendi.sh 0");
+        // enable_keys();
+        clear_instream();
     #endif
     getch();
 }
@@ -461,7 +470,7 @@ int bball_dunk()
 {
     #ifdef __linux__
       //  system("kendi.sh 1");
-      disable_keys();
+    //   disable_keys();
     #endif
 
     //Opening file resources/Dunk_words.csv in read mode
