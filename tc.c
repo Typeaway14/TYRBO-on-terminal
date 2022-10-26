@@ -30,11 +30,13 @@ void coord_details(int *rows, int* columns, int *x, int *y, int size)
     *y=((*rows/2)>16)?(*rows/2):16;
 }
 
-void clear_instream()
-{
-    int stdin_copy = dup(STDIN_FILENO);
-    /* remove garbage from stdin */
-    tcdrain(stdin_copy);
-    tcflush(stdin_copy, TCIFLUSH);
-    close(stdin_copy);
-}
+#ifdef __linux__
+    void clear_instream()
+    {
+        int stdin_copy = dup(STDIN_FILENO);
+        /* remove garbage from stdin */
+        tcdrain(stdin_copy);
+        tcflush(stdin_copy, TCIFLUSH);
+        close(stdin_copy);
+    }
+#endif
