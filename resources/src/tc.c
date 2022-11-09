@@ -1,6 +1,6 @@
 #include<stdio.h>
-#include"tc.h"
-#include"type_content.h"
+#include"../lib/tc.h"
+#include"../lib/type_content.h"
 #ifdef __linux__
     #include <termios.h>
     #include<unistd.h>

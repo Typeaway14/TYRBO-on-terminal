@@ -1,7 +1,7 @@
 //The client code that contains the main function
 #include<stdio.h>
-#include"tc.h"
-#include"type_content.h"
+#include"../lib/tc.h"
+#include"../lib/type_content.h"
 #include<string.h>
 #include<stdlib.h>
 void help();

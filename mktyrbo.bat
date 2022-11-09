@@ -8,7 +8,10 @@ if [%arg1%]==[] (
 )
 
 if %arg1%==clean (
-    del *.o tyrbo.exe
+    del tyrbo.exe
+    cd resources/bin/
+    del *.o
+    cd ../..
 )
 
 :commonexit

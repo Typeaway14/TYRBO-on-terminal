@@ -1,12 +1,8 @@
-tyrbo.exe: resources/lib/type_content.o resources/lib/client.o resources/lib/tc.o
-	gcc -g resources/lib/type_content.o resources/lib/tc.o resources/lib/client.o -o tyrbo
-type_content.o: resources/lib/type_content.c
-	gcc -c -g resources/lib/type_content.c
-client.o: resources/lib/client.c
-	gcc -c -g resources/lib/client.c
-tc.o: resources/lib/tc.c
-	gcc -c -g resources/lib/tc.c
-
-.PHONY: clean
-clean:
-	rm resources/lib/*.o tyrbo
+tyrbo.exe: type_content.o client.o tc.o
+	gcc -g resources/bin/type_content.o resources/bin/tc.o resources/bin/client.o -o tyrbo
+type_content.o: resources/src/type_content.c
+	gcc -c -g resources/src/type_content.c -o resources/bin/type_content.o
+client.o: resources/src/client.c
+	gcc -c -g resources/src/client.c -o resources/bin/client.o
+tc.o: resources/src/tc.c
+	gcc -c -g resources/src/tc.c -o resources/bin/tc.o
