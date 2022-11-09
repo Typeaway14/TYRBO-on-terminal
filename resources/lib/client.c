@@ -1,7 +1,7 @@
 //The client code that contains the main function
 #include<stdio.h>
-#include"resources/lib/tc.h"
-#include"resources/lib/type_content.h"
+#include"tc.h"
+#include"type_content.h"
 #include<string.h>
 #include<stdlib.h>
 void help();
@@ -35,7 +35,7 @@ int main(int argc,char** argv)
         #ifdef _WIN32
             if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
             {
-                system("resources/lib/init_terminal.bat");
+                system("init_terminal.bat");
             }
         #elif __linux__
             if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
