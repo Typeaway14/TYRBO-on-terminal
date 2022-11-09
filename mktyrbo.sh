@@ -4,7 +4,7 @@ if [[ $1 == '' ]]; then
     echo to run tyrbo: ./tyrbo
 elif [[ $1 == 'clean' ]]; then
     echo cleaning intermediate and target files...
-    rm resources/lib/*.o tyrbo
+    rm resources/bin/*.o tyrbo
     echo done!
 else
     echo Usage:
