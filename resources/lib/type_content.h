@@ -10,6 +10,8 @@ void score_save(int gmode,float *wpm,float *acc,float *netwpm,int BBscore);
 char* rand_string(char* ,int ,char*);
 void type_launch(char*,char*,char );
 char rand_mode();
+char* get_color_code();
+void change_color_code(char);
 #ifdef _WIN32
     void caps_check();
 #elif __linux__
