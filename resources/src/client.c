@@ -70,6 +70,7 @@ int main(int argc,char** argv)
     type_launch(diff,sent,gmode);
     TC_CLRSCR();
     art_disp("resources/art/TYRBO.txt");
+    printf("\e[?25h");
     TC_CLRSCR();
     TC_MOVE_CURSOR(0,0);
     return 0;
