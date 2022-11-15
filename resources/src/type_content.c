@@ -20,6 +20,7 @@
 // SCORE scores[100];
 
 void caps_check();
+TSTRING *tstring_head=NULL;
 int score_n;
 FILE *score_fp;
 
@@ -77,14 +78,14 @@ char* rand_string(char* fname,int charno,char* sent)
     return sent;
 }
 
-//Function to copy code from the file and copy it onto the
-//place to be typed on
-void type_launch(char* diff,char* sent,char gmode)
-{
-    strcpy(sent,rand_string(diff,300,sent));
-    int size=strlen(sent)-1;
-    type_disp(sent,size,gmode);
-}
+// //Function to copy code from the file and copy it onto the
+// //place to be typed on
+// void type_launch(char* diff,char* sent,char gmode)
+// {
+//     strcpy(sent,rand_string(diff,300,sent));
+//     int size=strlen(sent)-1;
+//     type_disp(sent,size,gmode);
+// }
 
 //Function to return a character based on a random parameter
 //ranging from 0 to 3
@@ -119,148 +120,148 @@ char rand_mode()
 }
 
 //Function to display type utilizing type_input function
-int type_disp( char* p,int size, char gmode)
-{
-    TC_CLRSCR();
-    char tmp[size];
-    strcpy(tmp,p);
-    int x=0,y=0,rows=0,columns=0;
-    coord_details(&rows,&columns,&x,&y,size);
-    int ycopy=y;
-    TC_CLRSCR();
-    TC_MOVE_CURSOR(x,y);
-    if(p==NULL)
-        return -1;
-    for(int i=1;*p;i++)
-    {
-        if(i==columns-1)
-        {
-            i=1;
-            ycopy++;
-            TC_MOVE_CURSOR(x,ycopy);
-            strcat(tmp,"  ");
-        }
-        //
-        printf("%c\xDB",*(p++));
-        //
-        printf("\b \b");
-    }
-    TC_MOVE_CURSOR(x,y);
-    return type_input(tmp,size,gmode);
-}
+// int type_disp( char* p,int size, char gmode)
+// {
+//     TC_CLRSCR();
+//     char tmp[size];
+//     strcpy(tmp,p);
+//     int x=0,y=0,rows=0,columns=0;
+//     coord_details(&rows,&columns,&x,&y,size);
+//     int ycopy=y;
+//     TC_CLRSCR();
+//     TC_MOVE_CURSOR(x,y);
+//     if(p==NULL)
+//         return -1;
+//     for(int i=1;*p;i++)
+//     {
+//         if(i==columns-1)
+//         {
+//             i=1;
+//             ycopy++;
+//             TC_MOVE_CURSOR(x,ycopy);
+//             strcat(tmp,"  ");
+//         }
+//         //
+//         printf("%c\xDB",*(p++));
+//         //
+//         printf("\b \b");
+//     }
+//     TC_MOVE_CURSOR(x,y);
+//     return type_input(tmp,size,gmode);
+// }
 
-//Function to check typing input 
-int type_input(char* p,int size,char gmode)
-{
-    #ifdef _WIN32
-        CLEAR_INSTREAM;
-    #elif __linux__
-        clear_instream();
-    #endif
-    printf("\e[?25l");
-    clock_t t;
-    char ch='a';
-    int BBscore=0;
-    int tmp=1;
-    int count=0;
-    int streak=0;
-    int x=0,y=0,rows=0,columns=0;
-    coord_details(&rows,&columns,&x,&y,size);
-    FILE *fp;
-    fp=fopen("resources/art/BB_Launch.txt","r");
-    char bball=fgetc(fp);
-    int b=1;
-    for(;((*(p+1))!='\0')&&(ch=getch());)
-    {
-        caps_check();
-        if(tmp)
-        {
-            t=clock();
-            tmp--;
-        }
-
-
-        if(ch==*p)
-        {
-            TC_MOVE_CURSOR(x,y);
-            printf("%s\b",p+1);
-            p+=1;
-            count+=1;
-            trimTrailing(p);
-            streak++;
-        }
+// //Function to check typing input 
+// int type_input(char* p,int size,char gmode)
+// {
+//     #ifdef _WIN32
+//         CLEAR_INSTREAM;
+//     #elif __linux__
+//         clear_instream();
+//     #endif
+//     printf("\e[?25l");
+//     clock_t t;
+//     char ch='a';
+//     int BBscore=0;
+//     int tmp=1;
+//     int count=0;
+//     int streak=0;
+//     int x=0,y=0,rows=0,columns=0;
+//     coord_details(&rows,&columns,&x,&y,size);
+//     FILE *fp;
+//     fp=fopen("resources/art/BB_Launch.txt","r");
+//     char bball=fgetc(fp);
+//     int b=1;
+//     for(;((*(p+1))!='\0')&&(ch=getch());)
+//     {
+//         caps_check();
+//         if(tmp)
+//         {
+//             t=clock();
+//             tmp--;
+//         }
 
 
-        else
-        {  
-            if(gmode=='z')
-                return 0;
-            if(gmode=='s')
-            {
-                size=count;
-                break;
-            }
-            handle_wrong_case(fp,&b,&streak,&count,p,x,y,0);
-        }
+//         if(ch==*p)
+//         {
+//             TC_MOVE_CURSOR(x,y);
+//             printf("%s\b",p+1);
+//             p+=1;
+//             count+=1;
+//             trimTrailing(p);
+//             streak++;
+//         }
 
 
-        if((gmode=='b') && (streak>0) && (streak%5==0))
-        { 
-            TC_MOVE_CURSOR(0,b);
-            for(;bball!='\n';)
-            {
-                printf("%c",bball);
-                bball=fgetc(fp);
-            }
-            b++;
-            bball=fgetc(fp);
-            if(streak==65)
-            {
-                if(bball_dunk())
-                {
-                    art_disp("resources/art/BB_Dunk.txt");
-                    BBscore+=25;
-                }
-                else
-                {
-                    art_disp("resources/art/OOF.txt");
-                    BBscore+=5;
-                }
-                #ifdef _WIN32
-                    Sleep(1000);
-                #elif __linux__
-                    usleep(1000000);
-                #endif
-                #ifdef _WIN32
-                    CLEAR_INSTREAM;
-                #elif __linux__
-                    clear_instream();
-                #endif
-                TC_CLRSCR();
-                caps_check();
-                ungetc('\n',stdin);
-                ch=getc(stdin);
-                count--;
-                handle_wrong_case(fp,&b,&streak,&count,p,x,y,1);
-                TC_CLRSCR();
-                caps_check();
-                TC_MOVE_CURSOR(x,y);
-                printf("%s",p);
-            }
-        }
-    }
-    if(gmode!='z')
-    {    
-        TC_CLRSCR();
-        t = clock() - t;
-        float time_taken = ((float)t)/CLOCKS_PER_SEC; // calculate the elapsed time
-        #ifdef __linux__
-            time_taken= ((time_taken)*1000)/2;
-        #endif
-        score(time_taken,count,size,gmode,BBscore);
-    }
-    return 1;
-}
+//         else
+//         {  
+//             if(gmode=='z')
+//                 return 0;
+//             if(gmode=='s')
+//             {
+//                 size=count;
+//                 break;
+//             }
+//             handle_wrong_case(fp,&b,&streak,&count,p,x,y,0);
+//         }
+
+
+//         if((gmode=='b') && (streak>0) && (streak%5==0))
+//         { 
+//             TC_MOVE_CURSOR(0,b);
+//             for(;bball!='\n';)
+//             {
+//                 printf("%c",bball);
+//                 bball=fgetc(fp);
+//             }
+//             b++;
+//             bball=fgetc(fp);
+//             if(streak==65)
+//             {
+//                 if(bball_dunk())
+//                 {
+//                     art_disp("resources/art/BB_Dunk.txt");
+//                     BBscore+=25;
+//                 }
+//                 else
+//                 {
+//                     art_disp("resources/art/OOF.txt");
+//                     BBscore+=5;
+//                 }
+//                 #ifdef _WIN32
+//                     Sleep(1000);
+//                 #elif __linux__
+//                     usleep(1000000);
+//                 #endif
+//                 #ifdef _WIN32
+//                     CLEAR_INSTREAM;
+//                 #elif __linux__
+//                     clear_instream();
+//                 #endif
+//                 TC_CLRSCR();
+//                 caps_check();
+//                 ungetc('\n',stdin);
+//                 ch=getc(stdin);
+//                 count--;
+//                 handle_wrong_case(fp,&b,&streak,&count,p,x,y,1);
+//                 TC_CLRSCR();
+//                 caps_check();
+//                 TC_MOVE_CURSOR(x,y);
+//                 printf("%s",p);
+//             }
+//         }
+//     }
+//     if(gmode!='z')
+//     {    
+//         TC_CLRSCR();
+//         t = clock() - t;
+//         float time_taken = ((float)t)/CLOCKS_PER_SEC; // calculate the elapsed time
+//         #ifdef __linux__
+//             time_taken= ((time_taken)*1000)/2;
+//         #endif
+//         score(time_taken,count,size,gmode,BBscore);
+//     }
+//     return 1;
+// }
 
 //Function to find score of typing speed test
 void score(float time_taken,int count,int size,char gmode,int BBscore)
@@ -377,32 +378,32 @@ void trimTrailing(char * str)
     str[index + 2] = '\0';//Mark next character to last non-white space character as NULL
 }
 
-//Function to check wrong cases and highlight them red
-int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y,int color)
-{
-    TC_CLRSCR();
-    caps_check();
-    fseek(fp,0,SEEK_SET);
-    *b=0;
-    TC_MOVE_CURSOR(x,y); 
-    if(*p==' ')
-    {
-        printf("%s%c%s%s\b",TC_RED,'_',TC_NRM,p+1);
-        *streak=0;
-        *count+=1;
-        return 1;
-    }
-    printf("%s%c%s%s\b",TC_RED,*(p),TC_NRM,p+1);
-    if(color)
-    {
-        TC_MOVE_CURSOR(x,y);
-        printf("%s\b",p);
+// //Function to check wrong cases and highlight them red
+// int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y,int color)
+// {
+//     TC_CLRSCR();
+//     caps_check();
+//     fseek(fp,0,SEEK_SET);
+//     *b=0;
+//     TC_MOVE_CURSOR(x,y); 
+//     if(*p==' ')
+//     {
+//         printf("%s%c%s%s\b",TC_RED,'_',TC_NRM,p+1);
+//         *streak=0;
+//         *count+=1;
+//         return 1;
+//     }
+//     printf("%s%c%s%s\b",TC_RED,*(p),TC_NRM,p+1);
+//     if(color)
+//     {
+//         TC_MOVE_CURSOR(x,y);
+//         printf("%s\b",p);
 
-    }
-    *streak=0;
-    *count+=1;
-    return 1;
-}
+//     }
+//     *streak=0;
+//     *count+=1;
+//     return 1;
+// }
 
 //Function to display the text chosen randomly from the database of files
 void art_disp(char *filename)
@@ -561,7 +562,7 @@ int bball_dunk()
         usleep(750000);
     #endif
     fclose(frand);
-    return type_disp(tmp,5,'z');
+    return type_disp(5,'z');
 }
 
 //Defing conditions for Windows OS to find Caps
@@ -635,3 +636,311 @@ void caps_check()
 //     // open_scorefile();
 //     write_score(mode,wpm,acc,netwpm,BBscore);
 // }
+
+
+//stack implementation code, will be moved to other file later
+//Function to copy code from the file and copy it onto the
+//place to be typed on
+void type_launch(char* diff,char* sent,char gmode)
+{
+    strcpy(sent,rand_string(diff,300,sent));
+    int size=strlen(sent)-1;
+    trimTrailing(sent);
+    string_push("hello this is a new ting ");
+    type_disp(size,gmode);
+}
+
+void string_push(char* sent)
+{
+    for(int i=0;sent[i]!='\0';i++)
+    {
+        TSTRING *tstring_tmp = (TSTRING*)malloc(sizeof(TSTRING));
+        CHAR_NODE *node_tmp = (CHAR_NODE*)malloc(sizeof(CHAR_NODE));
+        TSTRING *trav = tstring_head;
+        tstring_tmp->next=NULL;
+        tstring_tmp->prev=NULL;
+        node_tmp->color_flag=1;
+        node_tmp->inp_char=sent[i];
+        tstring_tmp->data=node_tmp;
+        if(tstring_head==NULL)
+        {
+            tstring_head=tstring_tmp;
+        }
+        else
+        {
+            while(trav->next)
+            {
+                trav=trav->next;
+            }
+            trav->next=tstring_tmp;
+            tstring_tmp->prev=trav;
+        }
+    }
+}
+
+int type_disp(int size, char gmode)
+{
+    TC_CLRSCR();
+    // char tmp[size];
+    // strcpy(tmp,);
+    // int x=0,y=0,rows=0,columns=0;
+    // coord_details(&rows,&columns,&x,&y,size);
+    // int ycopy=y;
+    // TC_CLRSCR();
+    // TC_MOVE_CURSOR(x,y);
+    // if(p==NULL)
+    //     return -1;
+    // for(int i=1;*p;i++)
+    // {
+    //     if(i==columns-1)
+    //     {
+    //         i=1;
+    //         ycopy++;
+    //         TC_MOVE_CURSOR(x,ycopy);
+    //         strcat(tmp,"  ");
+    //     }
+    //     //
+    //     printf("%c\xDB",*(p++));
+    //     //
+    //     printf("\b \b");
+    // }
+    // TC_MOVE_CURSOR(x,y);
+    
+    // TSTRING *trav = tstring_head;
+    // int x=0,y=0,rows=0,columns=0;
+    // coord_details(&rows,&columns,&x,&y,size);
+    // TC_CLRSCR();
+    // TC_MOVE_CURSOR(x,y);
+    // if(!tstring_head)
+    // {
+    //     return -1;
+    // }
+    // else
+    // {
+    //     while(trav)
+    //     {
+    //         if(trav->data->color_flag == 1)
+    //         {
+    //             printf("%c\b",trav->data->inp_char);
+    //         }
+    //         else
+    //         {
+    //             printf("%s%c%s\b",TC_RED,trav->data->inp_char,TC_NRM);
+    //         }
+    //         trav=trav->next;
+    //     }
+    // }
+    string_print(size);
+
+    return type_input(size,gmode);
+}
+
+void string_print(int size)
+{
+    TSTRING *trav = tstring_head;
+    int x=0,y=0,rows=0,columns=0;
+    coord_details(&rows,&columns,&x,&y,size);
+    TC_CLRSCR();
+    TC_MOVE_CURSOR(x,y);
+    if(!tstring_head)
+    {
+        return;
+    }
+    else
+    {
+        while(trav)
+        {
+            if(trav->data->color_flag == 1)
+            {
+                printf("%c",trav->data->inp_char);
+                // printf("im here");
+            }
+            else
+            {
+                printf("%s%c%s",TC_RED,trav->data->inp_char,TC_NRM);
+            }
+            trav=trav->next;
+        }
+    }
+}
+
+void string_pop()
+{
+    TSTRING *trav=tstring_head;
+    tstring_head=tstring_head->next;
+    tstring_head->prev=NULL;
+    free(trav);
+    trav=NULL;
+}
+
+//Function to check typing input 
+int type_input(int size,char gmode)
+{
+    #ifdef _WIN32
+        CLEAR_INSTREAM;
+    #elif __linux__
+        clear_instream();
+    #endif
+    printf("\e[?25l");
+    TSTRING *trav=tstring_head;
+    CHAR_NODE *current_node = NULL;
+    clock_t t;
+    char ch='a';
+    int BBscore=0;
+    int time_tmp=1;
+    int count=0;
+    int streak=0;
+    int x=0,y=0,rows=0,columns=0;
+    coord_details(&rows,&columns,&x,&y,size);
+    FILE *fp;
+    fp=fopen("resources/art/BB_Launch.txt","r");
+    char bball=fgetc(fp);
+    int b=1;
+    for(;(trav) && (trav->data->inp_char!='\0') && (ch=getch());)
+    {
+        caps_check();
+        current_node = trav->data;
+        if(time_tmp)
+        {
+            t=clock();
+            time_tmp--;
+        }
+
+        //if(ch==*p)
+        if(ch==trav->data->inp_char)
+        {
+            // TC_MOVE_CURSOR(x,y);
+            // printf("%s\b",p+1);
+            // p+=1;
+            // count+=1;
+            // trimTrailing(p);
+            // streak++;
+            TC_MOVE_CURSOR(x,y);
+            string_pop();
+            size--;
+            string_print(size);
+            count+=1;
+            streak++;
+        }
+        else if(ch == 127)
+        {
+            if(trav->prev)
+            {
+                trav=trav->prev;
+                trav->data->color_flag=1;
+                if(trav->data->inp_char == '_')
+                    trav->data->inp_char = ' ';
+                // if(trav->prev)
+                //     trav=trav->prev;
+                count--;
+                string_print(size);
+            }
+            continue;
+        }
+        else
+        {  
+            if(gmode=='z')
+                return 0;
+            if(gmode=='s')
+            {
+                size=count;
+                break;
+            }
+            handle_wrong_case(fp,&b,&streak,&count,&(trav->data),x,y,size,0);
+        }
+
+
+        if((gmode=='b') && (streak>0) && (streak%5==0))
+        { 
+            TC_MOVE_CURSOR(0,b);
+            for(;bball!='\n';)
+            {
+                printf("%c",bball);
+                bball=fgetc(fp);
+            }
+            b++;
+            bball=fgetc(fp);
+            if(streak==65)
+            {
+                if(bball_dunk())
+                {
+                    art_disp("resources/art/BB_Dunk.txt");
+                    BBscore+=25;
+                }
+                else
+                {
+                    art_disp("resources/art/OOF.txt");
+                    BBscore+=5;
+                }
+                #ifdef _WIN32
+                    Sleep(1000);
+                #elif __linux__
+                    usleep(1000000);
+                #endif
+                #ifdef _WIN32
+                    CLEAR_INSTREAM;
+                #elif __linux__
+                    clear_instream();
+                #endif
+                TC_CLRSCR();
+                caps_check();
+                ungetc('\n',stdin);
+                ch=getc(stdin);
+                count--;
+                // handle_wrong_case(fp,&b,&streak,&count,p,x,y,1);
+                handle_wrong_case(fp,&b,&streak,&count,&(trav->data),x,y,size,1);
+                TC_CLRSCR();
+                caps_check();
+                TC_MOVE_CURSOR(x,y);
+                // printf("%s",p);
+                string_print(size);
+            }
+        }
+        trav=trav->next;
+    }
+    if(gmode!='z')
+    {    
+        TC_CLRSCR();
+        t = clock() - t;
+        float time_taken = ((float)t)/CLOCKS_PER_SEC; // calculate the elapsed time
+        #ifdef __linux__
+            time_taken= ((time_taken)*1000)/2;
+        #endif
+        score(time_taken,count,size,gmode,BBscore);
+    }
+
+    return 1;
+}
+
+int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,int x,int y,int size,int color)
+{
+    TC_CLRSCR();
+    caps_check();
+    fseek(fp,0,SEEK_SET);
+    *b=0;
+    TC_MOVE_CURSOR(x,y); 
+    // if(*p==' ')
+    // {
+    //     printf("%s%c%s%s\b",TC_RED,'_',TC_NRM,p+1);
+    //     *streak=0;
+    //     *count+=1;
+    //     return 1;
+    // }
+    // printf("%s%c%s%s\b",TC_RED,*(p),TC_NRM,p+1);
+    // if(color)
+    // {
+    //     TC_MOVE_CURSOR(x,y);
+    //     printf("%s\b",p);
+
+    // }
+    (*node)->color_flag=0;
+    if((*node)->inp_char==' ')
+    {
+        (*node)->inp_char='_';
+    }
+    string_print(size);
+    *streak=0;
+    *count+=1;
+    return 1;
+}
+
