@@ -564,7 +564,7 @@ void type_launch(char* diff,char* sent,char gmode)
     strcpy(sent,rand_string(diff,300,sent));
     int size=strlen(sent)-1;
     trimTrailing(sent);
-    string_push("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ");
+    string_push(sent);
     type_disp(size,gmode);
 }
 
@@ -670,12 +670,14 @@ void string_print(int size)
         {
             if(trav->data->color_flag == 1)
             {
-                printf("%c",trav->data->inp_char);
+                fprintf(stdout,"%c",trav->data->inp_char);
+                fflush(stdout);
                 // printf("im here");
             }
             else
             {
-                printf("%s%c%s",TC_RED,trav->data->inp_char,TC_NRM);
+                fprintf(stdout,"%s%c%s",TC_RED,trav->data->inp_char,TC_NRM);
+                fflush(stdout);
             }
             trav=trav->next;
         }
@@ -749,7 +751,7 @@ int type_input(int size,char gmode)
             TSTRING* next_trav = trav->next;
             string_pop(&trav);
             trav = next_trav;
-            size--;
+            // size--;
             string_print(size);
             count+=1;
             streak++;
