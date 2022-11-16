@@ -71,6 +71,7 @@ int main(int argc,char** argv)
     TC_CLRSCR();
     art_disp("resources/art/TYRBO.txt");
     printf("\e[?25h");
+    free_structures();
     TC_CLRSCR();
     TC_MOVE_CURSOR(0,0);
     return 0;

@@ -963,3 +963,21 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,in
     return 1;
 }
 
+void free_structures()
+{
+    free_dll();
+    free(tstring_head);
+    // free_stack();
+}
+
+void free_dll()
+{
+    TSTRING *trav = tstring_head;
+    while(tstring_head)
+    {
+        tstring_head=tstring_head->next;
+        free(trav->data);
+        free(trav);
+        trav = tstring_head;
+    }
+}

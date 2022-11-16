@@ -35,6 +35,8 @@ void change_color_code(char);
 void string_push(char*);
 void string_pop(TSTRING**);
 void string_print(int);
+void free_structures();
+void free_dll();
 
 #ifdef _WIN32
     void caps_check();
