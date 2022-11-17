@@ -570,7 +570,7 @@ void type_launch(char* diff,char* sent,char gmode)
 
 void string_push(char* sent)
 {
-    for(int i=0;sent[i]!='\0';i++)
+    for(int i=0;i<strlen(sent)-1;i++) // -1 ensures last whitespace not added to dll
     {
         TSTRING *tstring_tmp = (TSTRING*)malloc(sizeof(TSTRING));
         CHAR_NODE *node_tmp = (CHAR_NODE*)malloc(sizeof(CHAR_NODE));
@@ -681,6 +681,9 @@ void string_print(int size)
             }
             trav=trav->next;
         }
+        fprintf(stdout,"%c",' ');
+        fprintf(stdout,"%c",' ');
+        fflush(stdout);
     }
 }
 
@@ -701,6 +704,7 @@ void string_pop(TSTRING** trav)
     // TSTRING *trav=tstring_head;
     // tstring_head=tstring_head->next;
     // tstring_head->prev=NULL;
+    free((*trav)->data);
     free(*trav);
     *trav=NULL;
 }
