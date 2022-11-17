@@ -823,13 +823,6 @@ int type_input(int size,char gmode)
                 #endif
                 TC_CLRSCR();
                 caps_check();
-                ungetc('\n',stdin);
-                ch=getc(stdin);
-                count--;
-                // handle_wrong_case(fp,&b,&streak,&count,p,x,y,1);
-                handle_wrong_case(fp,&b,&streak,&count,&(trav->data),x,y,size,1);
-                TC_CLRSCR();
-                caps_check();
                 TC_MOVE_CURSOR(x,y);
                 // printf("%s",p);
                 string_print(size);
