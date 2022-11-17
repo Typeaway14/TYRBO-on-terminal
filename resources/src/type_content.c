@@ -803,6 +803,13 @@ void stk_push(char err_char)
         stk_temp->next = stk_head;
         stk_head = stk_temp;
     }
+    else
+    {
+        free(node_temp);
+        free(stk_temp);
+        node_temp=NULL;
+        stk_temp=NULL;
+    }
 }
 
 int stk_check(char err_char)
@@ -820,7 +827,7 @@ int stk_check(char err_char)
     return 1;
 }
 
-void print_stk() // temp function to check lolz
+void print_stk() // temp function to print stack to see if the thing works
 {
     CH_STK *trav = stk_head;
     for(int i=1;trav;i++)

@@ -44,23 +44,22 @@ char rand_mode();
 char* get_color_code();
 void change_color_code(char);
 
-void string_push(char*);
-void string_pop(TSTRING**);
-void string_print(int);
-void free_structures();
-void free_dll();
-void free_stk();
-void stk_push(char);
-int stk_check(char);
-void print_stk();
-
-
 #ifdef _WIN32
     void caps_check();
 #elif __linux__
     char getch(void);
 #endif
 
-//code for stack_imp
-
+//code for dll_imp
 int type_disp(int,char);//function to display text to be typed.Parameters:(string,size of string)
+void string_push(char*);
+void string_pop(TSTRING**);
+void string_print(int);
+void free_structures();
+void free_dll();
+
+//code for stack_imp
+void free_stk();
+void stk_push(char);
+int stk_check(char);
+void print_stk();
