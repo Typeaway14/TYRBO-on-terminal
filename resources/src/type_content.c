@@ -77,16 +77,6 @@ char* rand_string(char* fname,int charno,char* sent)
     //Returning the random strings
     return sent;
 }
-
-// //Function to copy code from the file and copy it onto the
-// //place to be typed on
-// void type_launch(char* diff,char* sent,char gmode)
-// {
-//     strcpy(sent,rand_string(diff,300,sent));
-//     int size=strlen(sent)-1;
-//     type_disp(sent,size,gmode);
-// }
-
 //Function to return a character based on a random parameter
 //ranging from 0 to 3
 char rand_mode()
@@ -295,34 +285,6 @@ void trimTrailing(char * str)
     }
     str[index + 2] = '\0';//Mark next character to last non-white space character as NULL
 }
-
-// //Function to check wrong cases and highlight them red
-// int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,char* p,int x,int y,int color)
-// {
-//     TC_CLRSCR();
-//     caps_check();
-//     fseek(fp,0,SEEK_SET);
-//     *b=0;
-//     TC_MOVE_CURSOR(x,y); 
-//     if(*p==' ')
-//     {
-//         printf("%s%c%s%s\b",TC_RED,'_',TC_NRM,p+1);
-//         *streak=0;
-//         *count+=1;
-//         return 1;
-//     }
-//     printf("%s%c%s%s\b",TC_RED,*(p),TC_NRM,p+1);
-//     if(color)
-//     {
-//         TC_MOVE_CURSOR(x,y);
-//         printf("%s\b",p);
-
-//     }
-//     *streak=0;
-//     *count+=1;
-//     return 1;
-// }
-
 //Function to display the text chosen randomly from the database of files
 void art_disp(char *filename)
 {
@@ -345,12 +307,6 @@ void art_disp(char *filename)
         #endif
 
     }
-    // while(ch!=EOF)
-    // {
-    //     ch=fgetc(fp);
-    //    // Sleep(1);
-    //     printf("%s%c%s",TC_GRN,ch,TC_NRM);
-    // }
     fclose(fp);
 }
 
@@ -359,7 +315,6 @@ char* get_color_code()
     FILE *fp_color;
     fp_color=fopen("resources/art/TYRBO.txt","r");
     fseek(fp_color,-1,SEEK_END);
-    // printf("%c",fgetc(fp_color));
     char color_code=fgetc(fp_color);
     fclose(fp_color);
     switch(color_code)
@@ -399,90 +354,6 @@ void change_color_code(char color_code)
     fputc(color_code,fp_color);
     fclose(fp_color);
 }
-
-// //Function to find whether 
-// int bball_dunk()
-// {
-//    //Opening file resources/Dunk_words.csv in read mode
-//     FILE *frand;
-//     frand=fopen("resources/Dunk_words.csv","r");
-
-//     srand(time(NULL));
-//     int r=0;
-
-//     //Loop to iterate until r is not greater than zero
-//     while(!(r>0))
-//     {
-//         //r is assigned to a random number from 0 to 3 of lines in fpcount
-//         r=rand() % 213;
-//     }
-//     char ch[1500];
-//     char tmp[6];
-//     // char tmp2[6];
-
-//     //Conditional statement to check if resources file is not equal to NULL
-//     if(fgets(ch,1500,frand)==NULL)
-//     {
-//         TC_CLRSCR();
-//         printf("Something went wrong..\nReturning back to home page..\n");
-//         #ifdef _WIN32
-//             Sleep(200);
-//         #elif __linux__
-//             usleep(200000);
-//         #endif
-//     } 
-
-//     //Converting string to token
-//     char* tmp2=strtok(ch,",");
-
-//     //Checking if token is NULL and copying value to tmp
-//     if(tmp2!=NULL)
-//     {
-//         strcpy(tmp,tmp2);
-//     }
-
-//     //If token is not null printing message that something went wrong and delaying
-//     else
-//     {
-//         TC_CLRSCR();
-//         printf("Something went wrong..\nReturning back to home page..\n");
-//         #ifdef _WIN32
-//             Sleep(200);
-//         #elif __linux__
-//             usleep(200000);
-//         #endif
-//     }
-
-//     //Loop to iterate from 0 to random value - 1
-//     for(int i=0;i<=r-1;i++)
-//     {
-//         tmp2=strtok(NULL,",");
-//         if(tmp2!=NULL)
-//         {
-//             strcpy(tmp,tmp2);
-//         }
-//         else
-//         {
-//             TC_CLRSCR();
-//             printf("Something went wrong..\nReturning back to home page..\n");
-//             #ifdef _WIN32
-//                 Sleep(200);
-//             #elif __linux__
-//                 usleep(200000);
-//             #endif
-//         }
-//     }
-//     TC_CLRSCR();
-//     art_disp("resources/art/BASKETBALL.txt");
-//     #ifdef _WIN32
-//         Sleep(750);
-//     #elif __linux__
-//         usleep(750000);
-//     #endif
-//     fclose(frand);
-//     return type_disp(5,'z');
-// }
-
 //Defing conditions for Windows OS to find Caps
 void caps_check()
 {
@@ -599,57 +470,7 @@ void string_push(char* sent)
 int type_disp(int size, char gmode)
 {
     TC_CLRSCR();
-    // char tmp[size];
-    // strcpy(tmp,);
-    // int x=0,y=0,rows=0,columns=0;
-    // coord_details(&rows,&columns,&x,&y,size);
-    // int ycopy=y;
-    // TC_CLRSCR();
-    // TC_MOVE_CURSOR(x,y);
-    // if(p==NULL)
-    //     return -1;
-    // for(int i=1;*p;i++)
-    // {
-    //     if(i==columns-1)
-    //     {
-    //         i=1;
-    //         ycopy++;
-    //         TC_MOVE_CURSOR(x,ycopy);
-    //         strcat(tmp,"  ");
-    //     }
-    //     //
-    //     printf("%c\xDB",*(p++));
-    //     //
-    //     printf("\b \b");
-    // }
-    // TC_MOVE_CURSOR(x,y);
-    
-    // TSTRING *trav = tstring_head;
-    // int x=0,y=0,rows=0,columns=0;
-    // coord_details(&rows,&columns,&x,&y,size);
-    // TC_CLRSCR();
-    // TC_MOVE_CURSOR(x,y);
-    // if(!tstring_head)
-    // {
-    //     return -1;
-    // }
-    // else
-    // {
-    //     while(trav)
-    //     {
-    //         if(trav->data->color_flag == 1)
-    //         {
-    //             printf("%c\b",trav->data->inp_char);
-    //         }
-    //         else
-    //         {
-    //             printf("%s%c%s\b",TC_RED,trav->data->inp_char,TC_NRM);
-    //         }
-    //         trav=trav->next;
-    //     }
-    // }
     string_print(size);
-
     return type_input(size,gmode);
 }
 
@@ -658,7 +479,6 @@ void string_print(int size)
     TSTRING *trav = tstring_head;
     int x=0,y=0,rows=0,columns=0;
     coord_details(&rows,&columns,&x,&y,size);
-    // TC_CLRSCR();
     TC_MOVE_CURSOR(x,y);
     if(!tstring_head)
     {
@@ -672,7 +492,6 @@ void string_print(int size)
             {
                 fprintf(stdout,"%c",trav->data->inp_char);
                 fflush(stdout);
-                // printf("im here");
             }
             else
             {
@@ -701,9 +520,6 @@ void string_pop(TSTRING** trav)
         if((*trav)->next) // takes care if middle node is to be deleted
             (*trav)->next->prev = (*trav)->prev;
     }
-    // TSTRING *trav=tstring_head;
-    // tstring_head=tstring_head->next;
-    // tstring_head->prev=NULL;
     free((*trav)->data);
     free(*trav);
     *trav=NULL;
@@ -741,21 +557,12 @@ int type_input(int size,char gmode)
             t=clock();
             time_tmp--;
         }
-
-        //if(ch==*p)
         if(ch==trav->data->inp_char)
         {
-            // TC_MOVE_CURSOR(x,y);
-            // printf("%s\b",p+1);
-            // p+=1;
-            // count+=1;
-            // trimTrailing(p);
-            // streak++;
             TC_MOVE_CURSOR(x,y);
             TSTRING* next_trav = trav->next;
             string_pop(&trav);
             trav = next_trav;
-            // size--;
             string_print(size);
             count+=1;
             streak++;
@@ -768,8 +575,6 @@ int type_input(int size,char gmode)
                 trav->data->color_flag=1;
                 if(trav->data->inp_char == '_')
                     trav->data->inp_char = ' ';
-                // if(trav->prev)
-                //     trav=trav->prev;
                 count--;
                 string_print(size);
             }
@@ -824,11 +629,9 @@ int type_input(int size,char gmode)
                 TC_CLRSCR();
                 caps_check();
                 TC_MOVE_CURSOR(x,y);
-                // printf("%s",p);
                 string_print(size);
             }
         }
-        // trav=trav->next;
     }
     if(gmode!='z')
     {    
@@ -934,21 +737,7 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,in
     caps_check();
     fseek(fp,0,SEEK_SET);
     *b=0;
-    TC_MOVE_CURSOR(x,y); 
-    // if(*p==' ')
-    // {
-    //     printf("%s%c%s%s\b",TC_RED,'_',TC_NRM,p+1);
-    //     *streak=0;
-    //     *count+=1;
-    //     return 1;
-    // }
-    // printf("%s%c%s%s\b",TC_RED,*(p),TC_NRM,p+1);
-    // if(color)
-    // {
-    //     TC_MOVE_CURSOR(x,y);
-    //     printf("%s\b",p);
-
-    // }
+    TC_MOVE_CURSOR(x,y);
     (*node)->color_flag=0;
     if((*node)->inp_char==' ')
     {
