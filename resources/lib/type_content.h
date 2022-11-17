@@ -1,13 +1,13 @@
 //header file that contains the prototypes for functions that will be used for typing related actions
 
-//structure that holds the node with character values
+//structure that holds the node with character value and flag
 typedef struct char_dll
 {
     char inp_char; //input_char
     int color_flag;
 }CHAR_NODE;
 
-//structure that holds a CHAR_NODE and a flag to indicate color of printing
+//structure that holds a CHAR_NODE and pointers to other nodes
 typedef struct test_string
 {
     struct test_string *prev;
@@ -15,7 +15,19 @@ typedef struct test_string
     struct test_string *next;
 }TSTRING;
 
-// TSTRING *tstring_head;
+//structure that holds the node for stacks
+typedef struct stack_node
+{
+    char inp_char;
+    int occurence;
+}STK_NODE;
+
+//structure that holds a STK_NODE and pointer to next node
+typedef struct char_stack
+{
+    STK_NODE *data;
+    struct char_stack *next;
+}CH_STK;
 
 int single_type_disp(char* ,int,char);//function to display text to be typed.Parameters:(string,size of string)
 int single_type_input(char*,int,char);
@@ -37,6 +49,11 @@ void string_pop(TSTRING**);
 void string_print(int);
 void free_structures();
 void free_dll();
+void free_stk();
+void stk_push(char);
+int stk_check(char);
+void print_stk();
+
 
 #ifdef _WIN32
     void caps_check();

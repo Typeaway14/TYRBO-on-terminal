@@ -21,6 +21,7 @@
 
 void caps_check();
 TSTRING *tstring_head=NULL;
+CH_STK *stk_head=NULL;
 int score_n;
 FILE *score_fp;
 
@@ -427,7 +428,7 @@ void caps_check()
 // }
 
 
-//stack implementation code, will be moved to other file later
+//dll implementation code, will be moved to other file later
 //Function to copy code from the file and copy it onto the
 //place to be typed on
 void type_launch(char* diff,char* sent,char gmode)
@@ -589,6 +590,7 @@ int type_input(int size,char gmode)
                 size=count;
                 break;
             }
+            stk_push(trav->data->inp_char);
             handle_wrong_case(fp,&b,&streak,&count,&(trav->data),x,y,size,0);
             trav=trav->next;
         }
@@ -753,7 +755,8 @@ void free_structures()
 {
     free_dll();
     free(tstring_head);
-    // free_stack();
+    free_stk();
+    free(stk_head);
 }
 
 void free_dll()
@@ -765,5 +768,65 @@ void free_dll()
         free(trav->data);
         free(trav);
         trav = tstring_head;
+    }
+}
+
+void free_stk()
+{
+    CH_STK *trav = stk_head;
+    while(stk_head)
+    {
+        stk_head = stk_head->next;
+        free(trav->data);
+        free(trav);
+        trav = stk_head;
+    }
+}
+
+//Stack implementation here, change later
+void stk_push(char err_char)
+{
+    STK_NODE *node_temp = (STK_NODE*)malloc(sizeof(STK_NODE));
+    CH_STK *stk_temp = (CH_STK*)malloc(sizeof(CH_STK));
+    node_temp->inp_char = err_char;
+    node_temp->occurence=0;
+    stk_temp->data = node_temp;
+    stk_temp->next = NULL;
+    if(!stk_head)
+    {
+        stk_temp->data->occurence++;
+        stk_head = stk_temp;
+    }
+    else if(stk_check(err_char))//stk_check to return 1 if not in stack, 0 if already in stack
+    {
+        stk_temp->data->occurence++;
+        stk_temp->next = stk_head;
+        stk_head = stk_temp;
+    }
+}
+
+int stk_check(char err_char)
+{
+    CH_STK *trav = stk_head;
+    while(trav)
+    {
+        if(trav->data->inp_char == err_char)
+        {
+            trav->data->occurence++;
+            return 0;
+        }
+        trav = trav->next;
+    }
+    return 1;
+}
+
+void print_stk() // temp function to check lolz
+{
+    CH_STK *trav = stk_head;
+    for(int i=1;trav;i++)
+    {
+        printf("%d) %c - %d\n",i,trav->data->inp_char,trav->data->occurence);
+
+        trav = trav->next;
     }
 }
