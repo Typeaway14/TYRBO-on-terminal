@@ -18,8 +18,9 @@ typedef struct test_string
 //structure that holds the node for stacks
 typedef struct stack_node
 {
-    char exp_char;
-    int occurence;
+    char exp_char;//stores the expected character
+    // char inp_char;//stores but does nothing in current version of code
+    int occurence;//counts expected char
 }STK_NODE;
 
 //structure that holds a STK_NODE and pointer to next node
@@ -60,6 +61,8 @@ void free_dll();
 
 //code for stack_imp
 void free_stk();
+// void stk_push(char,char);
 void stk_push(char);
 int stk_check(char);
 void print_stk();
+void problem_keys_analysis();

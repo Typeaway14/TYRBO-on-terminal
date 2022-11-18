@@ -250,7 +250,7 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
         printf("\nYour Score was: %s%d%s",TC_GRN,BBscore,TC_NRM);
         // score_save(2,&wpm,&acc,&netwpm,BBscore);
     }
-
+    problem_keys_analysis();
     //Delaying the script execution based on operating system being 
     //Windows or Linux
     #ifdef _WIN32
@@ -258,7 +258,6 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     #elif __linux__
         usleep(1500000);
     #endif
-    
     //To continue after results
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
     #ifdef _WIN32
@@ -789,6 +788,7 @@ void stk_push(char err_char)
     STK_NODE *node_temp = (STK_NODE*)malloc(sizeof(STK_NODE));
     CH_STK *stk_temp = (CH_STK*)malloc(sizeof(CH_STK));
     node_temp->exp_char = err_char;
+    // node_temp->inp_char = inp_char;
     node_temp->occurence=0;
     stk_temp->data = node_temp;
     stk_temp->next = NULL;
@@ -834,6 +834,17 @@ void print_stk() // temp function to print stack to see if the thing works
     {
         printf("%d) %c - %d\n",i,trav->data->exp_char,trav->data->occurence);
 
+        trav = trav->next;
+    }
+}
+
+void problem_keys_analysis()
+{
+    printf("\nProblematic Keys:");
+    CH_STK *trav = stk_head;
+    while(trav)
+    {
+        printf(" %c(%d)",trav->data->exp_char,trav->data->occurence);
         trav = trav->next;
     }
 }
