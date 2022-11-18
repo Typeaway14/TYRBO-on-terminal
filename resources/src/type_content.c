@@ -144,11 +144,7 @@ int single_type_disp( char* p,int size, char gmode)
 // //Function to check typing input 
 int single_type_input(char* p,int size,char gmode)
 {
-    #ifdef _WIN32
-        CLEAR_INSTREAM;
-    #elif __linux__
-        clear_instream();
-    #endif
+    clear_instream();
     printf("\e[?25l");
     char ch='a';
     int x=0,y=0,rows=0,columns=0;
@@ -253,18 +249,10 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     problem_keys_analysis();
     //Delaying the script execution based on operating system being 
     //Windows or Linux
-    #ifdef _WIN32
-        Sleep(1500);
-    #elif __linux__
-        usleep(1500000);
-    #endif
+    term_sleep(1500);
     //To continue after results
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
-    #ifdef _WIN32
-        CLEAR_INSTREAM;
-    #elif __linux__
-        clear_instream();
-    #endif
+    clear_instream();
     getch();
 }
 
@@ -300,11 +288,7 @@ void art_disp(char *filename)
     while(fgets(ch,200,fp)!=NULL)
     {
         printf("%s%s%s",color,ch,TC_NRM);
-        #ifdef _WIN32
-            Sleep(16);
-        #elif __linux__
-            usleep(16000);
-        #endif
+        term_sleep(16);
 
     }
     fclose(fp);
@@ -528,11 +512,7 @@ void string_pop(TSTRING** trav)
 //Function to check typing input 
 int type_input(int size,char gmode)
 {
-    #ifdef _WIN32
-        CLEAR_INSTREAM;
-    #elif __linux__
-        clear_instream();
-    #endif
+    clear_instream();
     printf("\e[?25l");
     TSTRING *trav=tstring_head;
     CHAR_NODE *current_node = NULL;
@@ -617,16 +597,8 @@ int type_input(int size,char gmode)
                     art_disp("resources/art/OOF.txt");
                     BBscore+=5;
                 }
-                #ifdef _WIN32
-                    Sleep(1000);
-                #elif __linux__
-                    usleep(1000000);
-                #endif
-                #ifdef _WIN32
-                    CLEAR_INSTREAM;
-                #elif __linux__
-                    clear_instream();
-                #endif
+                term_sleep(1000);
+                clear_instream();
                 TC_CLRSCR();
                 caps_check();
                 TC_MOVE_CURSOR(x,y);
@@ -673,11 +645,7 @@ int bball_dunk()
     {
         TC_CLRSCR();
         printf("Something went wrong..\nReturning back to home page..\n");
-        #ifdef _WIN32
-            Sleep(200);
-        #elif __linux__
-            usleep(200000);
-        #endif
+        term_sleep(200);
     } 
 
     //Converting string to token
@@ -694,11 +662,7 @@ int bball_dunk()
     {
         TC_CLRSCR();
         printf("Something went wrong..\nReturning back to home page..\n");
-        #ifdef _WIN32
-            Sleep(200);
-        #elif __linux__
-            usleep(200000);
-        #endif
+        term_sleep(200);
     }
 
     //Loop to iterate from 0 to random value - 1
@@ -713,20 +677,12 @@ int bball_dunk()
         {
             TC_CLRSCR();
             printf("Something went wrong..\nReturning back to home page..\n");
-            #ifdef _WIN32
-                Sleep(200);
-            #elif __linux__
-                usleep(200000);
-            #endif
+            term_sleep(200);
         }
     }
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
-    #ifdef _WIN32
-        Sleep(750);
-    #elif __linux__
-        usleep(750000);
-    #endif
+    term_sleep(750);
     fclose(frand);
     return single_type_disp(tmp,5,'z');
 }

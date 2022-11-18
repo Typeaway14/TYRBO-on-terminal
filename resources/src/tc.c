@@ -43,3 +43,12 @@ void clear_instream()
     #endif
 
 }
+
+void term_sleep(int duration)
+{
+    #ifdef _WIN32
+        Sleep(duration);
+    #elif __linux__
+        usleep(duration*1000);
+    #endif
+}
