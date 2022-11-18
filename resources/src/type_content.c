@@ -568,7 +568,7 @@ int type_input(int size,char gmode)
             count+=1;
             streak++;
         }
-        else if(ch == 127)
+        else if(ch == 127 || ch == 8)
         {
             if(trav->prev)
             {
