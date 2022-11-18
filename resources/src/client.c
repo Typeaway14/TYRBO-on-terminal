@@ -4,6 +4,7 @@
 #include"../lib/type_content.h"
 #include<string.h>
 #include<stdlib.h>
+#include<conio.h>
 void help();
 void color_help();
 int main(int argc,char** argv)
@@ -71,8 +72,8 @@ int main(int argc,char** argv)
     TC_CLRSCR();
     art_disp("resources/art/TYRBO.txt");
     printf("\e[?25h");
-    // print_stk();
-    // getch();
+    print_stk();
+    getch();
     free_structures();
     TC_CLRSCR();
     TC_MOVE_CURSOR(0,0);

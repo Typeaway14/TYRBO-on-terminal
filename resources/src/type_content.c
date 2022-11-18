@@ -450,7 +450,7 @@ void string_push(char* sent)
         tstring_tmp->next=NULL;
         tstring_tmp->prev=NULL;
         node_tmp->color_flag=1;
-        node_tmp->inp_char=sent[i];
+        node_tmp->exp_char=sent[i];
         tstring_tmp->data=node_tmp;
         if(tstring_head==NULL)
         {
@@ -491,12 +491,12 @@ void string_print(int size)
         {
             if(trav->data->color_flag == 1)
             {
-                fprintf(stdout,"%c",trav->data->inp_char);
+                fprintf(stdout,"%c",trav->data->exp_char);
                 fflush(stdout);
             }
             else
             {
-                fprintf(stdout,"%s%c%s",TC_RED,trav->data->inp_char,TC_NRM);
+                fprintf(stdout,"%s%c%s",TC_RED,trav->data->exp_char,TC_NRM);
                 fflush(stdout);
             }
             trav=trav->next;
@@ -549,7 +549,7 @@ int type_input(int size,char gmode)
     fp=fopen("resources/art/BB_Launch.txt","r");
     char bball=fgetc(fp);
     int b=1;
-    for(;(trav) && (trav->data->inp_char!='\0') && (ch=getch());)
+    for(;(trav) && (trav->data->exp_char!='\0') && (ch=getch());)
     {
         caps_check();
         current_node = trav->data;
@@ -558,7 +558,7 @@ int type_input(int size,char gmode)
             t=clock();
             time_tmp--;
         }
-        if(ch==trav->data->inp_char)
+        if(ch==trav->data->exp_char)
         {
             TC_MOVE_CURSOR(x,y);
             TSTRING* next_trav = trav->next;
@@ -574,8 +574,8 @@ int type_input(int size,char gmode)
             {
                 trav=trav->prev;
                 trav->data->color_flag=1;
-                if(trav->data->inp_char == '_')
-                    trav->data->inp_char = ' ';
+                if(trav->data->exp_char == '_')
+                    trav->data->exp_char = ' ';
                 count--;
                 string_print(size);
             }
@@ -590,7 +590,7 @@ int type_input(int size,char gmode)
                 size=count;
                 break;
             }
-            stk_push(trav->data->inp_char);
+            stk_push(trav->data->exp_char);
             handle_wrong_case(fp,&b,&streak,&count,&(trav->data),x,y,size,0);
             trav=trav->next;
         }
@@ -741,9 +741,9 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,in
     *b=0;
     TC_MOVE_CURSOR(x,y);
     (*node)->color_flag=0;
-    if((*node)->inp_char==' ')
+    if((*node)->exp_char==' ')
     {
-        (*node)->inp_char='_';
+        (*node)->exp_char='_';
     }
     string_print(size);
     *streak=0;
@@ -788,7 +788,7 @@ void stk_push(char err_char)
 {
     STK_NODE *node_temp = (STK_NODE*)malloc(sizeof(STK_NODE));
     CH_STK *stk_temp = (CH_STK*)malloc(sizeof(CH_STK));
-    node_temp->inp_char = err_char;
+    node_temp->exp_char = err_char;
     node_temp->occurence=0;
     stk_temp->data = node_temp;
     stk_temp->next = NULL;
@@ -817,7 +817,7 @@ int stk_check(char err_char)
     CH_STK *trav = stk_head;
     while(trav)
     {
-        if(trav->data->inp_char == err_char)
+        if(trav->data->exp_char == err_char)
         {
             trav->data->occurence++;
             return 0;
@@ -832,7 +832,7 @@ void print_stk() // temp function to print stack to see if the thing works
     CH_STK *trav = stk_head;
     for(int i=1;trav;i++)
     {
-        printf("%d) %c - %d\n",i,trav->data->inp_char,trav->data->occurence);
+        printf("%d) %c - %d\n",i,trav->data->exp_char,trav->data->occurence);
 
         trav = trav->next;
     }

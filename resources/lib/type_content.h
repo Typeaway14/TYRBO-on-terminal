@@ -3,7 +3,7 @@
 //structure that holds the node with character value and flag
 typedef struct char_dll
 {
-    char inp_char; //input_char
+    char exp_char; //expected_char
     int color_flag;
 }CHAR_NODE;
 
@@ -18,7 +18,7 @@ typedef struct test_string
 //structure that holds the node for stacks
 typedef struct stack_node
 {
-    char inp_char;
+    char exp_char;
     int occurence;
 }STK_NODE;
 
