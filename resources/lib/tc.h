@@ -1,6 +1,5 @@
 #ifndef TC_M
 #define TC_M
-#endif
 #ifdef _WIN32
     #include<windows.h>
 #elif __linux__
@@ -41,4 +40,5 @@ void clear_instream();
 #define TC_MOVE_CURSOR(X,Y) printf("\033[%d;%dH",Y,X)
 #ifdef _WIN32
     #define CLEAR_INSTREAM FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE))
+#endif
 #endif

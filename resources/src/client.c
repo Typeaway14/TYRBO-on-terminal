@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include"../lib/tc.h"
 #include"../lib/type_content.h"
+#include"../lib/type_structures.h"
 #include<string.h>
 #include<stdlib.h>
 #ifdef __WIN32
