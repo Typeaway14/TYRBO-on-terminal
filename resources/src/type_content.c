@@ -526,7 +526,9 @@ int type_input(int size,char gmode)
     coord_details(&rows,&columns,&x,&y,size);
     FILE *fp;
     fp=fopen("resources/art/BB_Launch.txt","r");
-    char bball=fgetc(fp);
+    // char bball=fgetc(fp);
+    char bball[200];
+    fgets(bball,200,fp);
     int b=1;
     for(;(trav) && (trav->data->exp_char!='\0') && (ch=getch());)
     {
@@ -578,14 +580,18 @@ int type_input(int size,char gmode)
         if((gmode=='b') && (streak>0) && (streak%5==0))
         { 
             TC_MOVE_CURSOR(0,b);
-            for(;bball!='\n';)
-            {
-                printf("%c",bball);
-                bball=fgetc(fp);
-            }
+            // for(;bball!='\n';)
+            // {
+            //     printf("%c",bball);
+            //     bball=fgetc(fp);
+            // }
+            // b++;
+            // bball=fgetc(fp);
+            printf("%s\n",bball);
+            fgets(bball,200,fp);
             b++;
-            bball=fgetc(fp);
-            if(streak==65)
+
+            if(streak==70)
             {
                 if(bball_dunk())
                 {
@@ -597,12 +603,14 @@ int type_input(int size,char gmode)
                     art_disp("resources/art/OOF.txt");
                     BBscore+=5;
                 }
+                fseek(fp,0,SEEK_SET);
                 term_sleep(1000);
                 clear_instream();
                 TC_CLRSCR();
                 caps_check();
                 TC_MOVE_CURSOR(x,y);
                 string_print(size);
+                b=1;
             }
         }
     }
