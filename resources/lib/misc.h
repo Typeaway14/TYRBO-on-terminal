@@ -8,10 +8,9 @@ void score(float,int,int,char,int);//function to calculate the user score.Parame
 int bball_dunk();
 int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,int x,int y,int size,int color);
 void score_save(int gmode,float *wpm,float *acc,float *netwpm,int BBscore);
+void caps_check();
 void problem_keys_analysis();
-#ifdef _WIN32
-    void caps_check();
-#elif __linux__
+#ifdef __linux__
     char getch(void);
 #endif
 #endif

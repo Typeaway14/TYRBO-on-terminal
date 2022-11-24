@@ -10,6 +10,8 @@
         "ncurses.h": "c",
         "time.h": "c",
         "type_content.h": "c",
-        "windows.h": "c"
+        "windows.h": "c",
+        "stdio.h": "c",
+        "termios.h": "c"
     }
 }

@@ -2,14 +2,6 @@
 //Typing related functions can be found here
 //For further details about a particular function, refer to documentation in respective header files.
 #include<stdio.h>
-#ifdef _WIN32
-    #include<windows.h>//includes windows.h that contains functions like Sleep()
-    #include<conio.h>//includes conio.h that contains functions like getch()
-// #elif __linux__
-//     #include<sys/ioctl.h>
-//     #include<unistd.h>//usleep()
-//     #include <termios.h>
-#endif
 #include<string.h> //includes string.h that contains string manipulation functions like strcmp() strlen()
 #include<time.h>
 #include<stdlib.h>
@@ -18,11 +10,13 @@
 #include"../lib/tc.h"
 #include"../lib/art.h"
 #include"../lib/misc.h"
+#ifdef _WIN32
+    #include<windows.h>//includes windows.h that contains functions like Sleep()
+    #include<conio.h>//includes conio.h that contains functions like getch()
+#endif
 // SCORE scores[100];
-
-void caps_check();
-int score_n;
-FILE *score_fp;
+// int score_n;
+// FILE *score_fp;
 
 //Function to return random strings from a file
 //with the number of lines of the file as a parameter
@@ -77,6 +71,7 @@ char* rand_string(char* fname,int charno,char* sent)
     //Returning the random strings
     return sent;
 }
+
 //Function to return a character based on a random parameter
 //ranging from 0 to 3
 char rand_mode()
@@ -166,21 +161,6 @@ int single_type_input(char* p,int size,char gmode)
     }
     return 1;
 }
-// void score_save(int mode, float *wpm, float *acc, float *netwpm, int BBscore)
-// {
-//     open_scorefile();
-//     strcpy(scores[score_n].date,__DATE__);
-//     strcpy(scores[score_n].time,__TIME__);
-//     scores[score_n].gmode=mode;
-//     scores[score_n].wpm=*wpm;
-//     scores[score_n].accuracy=*acc;
-//     scores[score_n].netwpm=*netwpm;
-//     scores[score_n].BBscore=BBscore;
-//     score_n++;
-//     // open_scorefile();
-//     write_score(mode,wpm,acc,netwpm,BBscore);
-// }
-
 
 //dll implementation code, will be moved to other file later
 //Function to copy code from the file and copy it onto the
@@ -202,8 +182,6 @@ int type_disp(int size, char gmode)
     return type_input(size,gmode);
 }
 
-
-
 //Function to check typing input 
 int type_input(int size,char gmode)
 {
@@ -221,7 +199,6 @@ int type_input(int size,char gmode)
     coord_details(&rows,&columns,&x,&y,size);
     FILE *fp;
     fp=fopen("resources/art/BB_Launch.txt","r");
-    // char bball=fgetc(fp);
     char bball[200];
     fgets(bball,200,fp);
     int b=1;
@@ -270,18 +247,9 @@ int type_input(int size,char gmode)
             handle_wrong_case(fp,&b,&streak,&count,&(trav->data),x,y,size,0);
             trav=trav->next;
         }
-
-
         if((gmode=='b') && (streak>0) && (streak%5==0))
         { 
             TC_MOVE_CURSOR(0,b);
-            // for(;bball!='\n';)
-            // {
-            //     printf("%c",bball);
-            //     bball=fgetc(fp);
-            // }
-            // b++;
-            // bball=fgetc(fp);
             printf("%s\n",bball);
             fgets(bball,200,fp);
             b++;
@@ -319,6 +287,20 @@ int type_input(int size,char gmode)
         #endif
         score(time_taken,count,size,gmode,BBscore);
     }
-
     return 1;
 }
+
+// void score_save(int mode, float *wpm, float *acc, float *netwpm, int BBscore)
+// {
+//     open_scorefile();
+//     strcpy(scores[score_n].date,__DATE__);
+//     strcpy(scores[score_n].time,__TIME__);
+//     scores[score_n].gmode=mode;
+//     scores[score_n].wpm=*wpm;
+//     scores[score_n].accuracy=*acc;
+//     scores[score_n].netwpm=*netwpm;
+//     scores[score_n].BBscore=BBscore;
+//     score_n++;
+//     // open_scorefile();
+//     write_score(mode,wpm,acc,netwpm,BBscore);
+// }

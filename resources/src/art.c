@@ -8,7 +8,6 @@ void art_disp(char *filename)
     FILE *fp;
     fp=fopen(filename,"r");
     char ch[200];
-    //fscanf(fp,"%c",&ch);
     TC_CLRSCR();
     TC_MOVE_CURSOR(0,0);
     char color[11];
@@ -17,7 +16,6 @@ void art_disp(char *filename)
     {
         printf("%s%s%s",color,ch,TC_NRM);
         term_sleep(16);
-
     }
     fclose(fp);
 }

@@ -11,8 +11,7 @@
     #include<windows.h>//includes windows.h that contains functions like Sleep()
     #include<conio.h>//includes conio.h that contains functions like getch()
 #elif __linux__
-    // #include<sys/ioctl.h>
-    #include<unistd.h>//usleep()
+    #include<unistd.h>
     #include <termios.h>
 #endif
 
@@ -58,7 +57,6 @@ void trimTrailing(char * str)
     }
     str[index + 2] = '\0';//Mark next character to last non-white space character as NULL
 }
-
 
 //Defing conditions for Windows OS to find Caps
 void caps_check()
@@ -112,7 +110,6 @@ int bball_dunk()
     }
     char ch[1500];
     char tmp[6];
-    // char tmp2[6];
 
     //Conditional statement to check if resources file is not equal to NULL
     if(fgets(ch,1500,frand)==NULL)
@@ -161,7 +158,6 @@ int bball_dunk()
     return single_type_disp(tmp,5,'z');
 }
 
-
 int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,int x,int y,int size,int color)
 {
     TC_CLRSCR();
@@ -190,6 +186,7 @@ void problem_keys_analysis()
         trav = trav->next;
     }
 }
+
 //Function to find score of typing speed test
 void score(float time_taken,int count,int size,char gmode,int BBscore)
 {

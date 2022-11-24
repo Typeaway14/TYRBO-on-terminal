@@ -91,7 +91,6 @@ void stk_push(char err_char)
     STK_NODE *node_temp = (STK_NODE*)malloc(sizeof(STK_NODE));
     CH_STK *stk_temp = (CH_STK*)malloc(sizeof(CH_STK));
     node_temp->exp_char = err_char;
-    // node_temp->inp_char = inp_char;
     node_temp->occurence=0;
     stk_temp->data = node_temp;
     stk_temp->next = NULL;

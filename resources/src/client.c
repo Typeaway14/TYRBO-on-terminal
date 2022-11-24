@@ -11,6 +11,7 @@
 #endif
 void help();
 void color_help();
+
 int main(int argc,char** argv)
 {
     char sent[300];
@@ -83,6 +84,7 @@ int main(int argc,char** argv)
     TC_MOVE_CURSOR(0,0);
     return 0;
 }
+
 void help()
 {
     printf("TYRBO-on-terminal Help:\n");
@@ -104,6 +106,7 @@ void help()
     printf("-----------------------------------------------\n");
     printf("\nNOTE: IF THIS IS YOUR FIRST TIME RUNNING TYRBO, USE \"tyrbo init\" AND RESTART THE TERMINAL BEFORE USING TYRBO!\n");
 }
+
 void color_help()
 {
     printf("Color Help:\n");

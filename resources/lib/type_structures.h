@@ -1,5 +1,6 @@
 #ifndef TYPE_STR_H
 #define TYPE_STR_H
+
 //structure that holds the node with character value and flag
 typedef struct char_dll
 {
@@ -30,20 +31,20 @@ typedef struct char_stack
     struct char_stack *next;
 }CH_STK;
 
-
 extern TSTRING *tstring_head;
 extern CH_STK *stk_head;
 
+//headers for dll
 void string_push(char*);
 void string_pop(TSTRING**);
 void string_print(int);
-void free_structures();
 void free_dll();
 
-//code for stack_imp
-void free_stk();
-// void stk_push(char,char);
+//headers for stack_imp
 void stk_push(char);
 int stk_check(char);
 void print_stk();
+void free_stk();
+
+void free_structures();
 #endif

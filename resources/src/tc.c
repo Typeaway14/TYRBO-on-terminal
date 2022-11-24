@@ -1,12 +1,12 @@
 #include<stdio.h>
 #include"../lib/tc.h"
 #include"../lib/type_content.h"
-#ifdef __linux__
-    #include <termios.h>
-    #include<unistd.h>
-#endif
 #include <unistd.h>
 #include <stdlib.h>
+#ifdef __linux__
+    #include <termios.h>
+#endif
+
 int termsize(int *rows,int *columns)
 {
     #ifdef _WIN32
