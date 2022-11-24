@@ -34,7 +34,6 @@ typedef struct char_stack
 extern TSTRING *tstring_head;
 extern CH_STK *stk_head;
 
-int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,int x,int y,int size,int color);
 void string_push(char*);
 void string_pop(TSTRING**);
 void string_print(int);
