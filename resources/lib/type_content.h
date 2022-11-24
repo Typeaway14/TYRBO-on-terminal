@@ -8,14 +8,11 @@ int type_input(int,char);//function that takes input from user to play the game 
 void trimTrailing(char * str);
 void score(float,int,int,char,int);//function to calculate the user score.Parameters:(time_taken,total characters input by user,size of string)
 
-void art_disp(char*);
 int bball_dunk();
 void score_save(int gmode,float *wpm,float *acc,float *netwpm,int BBscore);
 char* rand_string(char* ,int ,char*);
 void type_launch(char*,char*,char );
 char rand_mode();
-char* get_color_code();
-void change_color_code(char);
 
 #ifdef _WIN32
     void caps_check();
