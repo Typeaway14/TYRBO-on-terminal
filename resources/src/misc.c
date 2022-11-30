@@ -8,14 +8,12 @@
 #include<time.h>
 #include<stdlib.h>
 #ifdef _WIN32
-    #include<windows.h>//includes windows.h that contains functions like Sleep()
-    #include<conio.h>//includes conio.h that contains functions like getch()
-#elif __linux__
+    #include<windows.h>
+    #include<conio.h>
+#elif defined(__linux__) || defined(__APPLE__)
     #include<unistd.h>
     #include <termios.h>
-#endif
 
-#ifdef __linux__
     char getch(void)
     {
         char buf = 0;
@@ -35,18 +33,16 @@
         old.c_lflag |= ECHO;
         if(tcsetattr(0, TCSADRAIN, &old) < 0)
             perror("tcsetattr ~ICANON");
-        // printf("%c\n", buf);
         return buf;
     }
 #endif
 
-//Function to encounter spaces, tabs and next lines
 void trimTrailing(char * str)
 {
     printf("\e[?25l");
     int index, i;
-    index = -1;//Set default index
-    i = 0;//Find last index of non-white space character
+    index = -1;
+    i = 0;
     while(str[i] != '\0')
     {
         if(str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
@@ -55,10 +51,10 @@ void trimTrailing(char * str)
         }
         i++;
     }
-    str[index + 2] = '\0';//Mark next character to last non-white space character as NULL
+    str[index + 2] = '\0';
 }
 
-//Defing conditions for Windows OS to find Caps
+
 void caps_check()
 {
     int rows=0,columns=0;
@@ -79,39 +75,28 @@ void caps_check()
     }
     pclose(p);
     if (result[0] == 'o' && result[1] == 'n')
-#endif
     {
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("CAPS LOCK IS ON");
     }
-
-//Defining conditions for Linux OS to Caps
 
     else
     {
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("               ");
     }
+#endif
 }
 
-//Function to find whether 
 int bball_dunk()
 {
-   //Opening file resources/Dunk_words.csv in read mode
     FILE *frand;
     frand=fopen("resources/Dunk_words.csv","r");
 
     srand(time(NULL));
-    int r=0;
+    int r=(rand() % 213)+1;
 
-    //Loop to iterate until r is not greater than zero
-    while(!(r>0))
-    {
-        //r is assigned to a random number from 0 to 3 of lines in fpcount
-        r=rand() % 213;
-    }
     char ch[1500];
-    //Conditional statement to check if resources file is not equal to NULL
     if(fgets(ch,1500,frand)==NULL)
     {
         TC_CLRSCR();
@@ -120,10 +105,8 @@ int bball_dunk()
         clean_and_exit();
     } 
 
-    //Converting string to token
     char* tmp=strtok(ch,",");
 
-    //If token is not null printing message that something went wrong and delaying
     if(!tmp)
     {
         TC_CLRSCR();
@@ -132,7 +115,6 @@ int bball_dunk()
         clean_and_exit();
     }
 
-    //Loop to iterate from 0 to random value - 1
     for(int i=0;i<=r-1;i++)
     {
         tmp=strtok(NULL,",");
@@ -144,7 +126,6 @@ int bball_dunk()
             clean_and_exit();
         }
     }
-    char* tmp=tmp;
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
     term_sleep(750);
@@ -181,60 +162,41 @@ void problem_keys_analysis()
     }
 }
 
-//Function to find score of typing speed test
 void score(float time_taken,int count,int size,char gmode,int BBscore)
 {
-    //Displaying the text using escape sequence escape character
     printf("\e[?25l");
-
-    //Moving cursor from 0 to 0
     TC_MOVE_CURSOR(0,0);
-
-    //Increasing the count received through the argument
     count++;
-
-    //Finding word per minute
     float wpm=((size/5)/(time_taken/60));
-
-    //Finding accuracy of the typing
     float acc=((float)size/(float)count)*100;
-
-    //Finding net word per minute
     float netwpm=wpm*(acc/100);
 
     if(gmode!='s')
     {   
-        //Displaying details of time taken to type, words per minute 
-        //and words per minute after checking accuracy
         printf("\nTime Taken: %s%.2fs%s\nCharacters: %s%d/%d%s",TC_GRN,time_taken,TC_NRM,TC_GRN,++count,size,TC_NRM);
         printf("\nYour WPM was: %s%.1f%s",TC_GRN,wpm,TC_NRM);
         printf("\nYour net WPM was: %s%.1f%s",TC_GRN,netwpm,TC_NRM);
 
-        //conditional statement for 100% accuracy  
         if(acc==100.0)
         {
             printf("\nYour accuracy was: %s",TC_CYN);
         }
 
-        //conditional statement for >=95.0% accuracy
         else if(acc>=95.0)
         {
             printf("\nYour accuracy was: %s",TC_MAG);
         }
 
-        //conditional statement for >=90.0 && <95.0 accuracy
         else if(acc>=90.0 && acc<95.0)
         {
             printf("\nYour accuracy was: %s",TC_GRN);
         }
 
-        //conditional statement for >=80.0 && acc<90.0 accuracy
         else if(acc>=80.0 && acc<90.0)
         {
             printf("\nYour accuracy was: %s",TC_YEL);
         }
 
-        //conditional statement for <80 accuracy
         else
         {
             printf("\nYour accuracy was: %s",TC_RED);
@@ -242,11 +204,6 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
         printf("%.1f%c%s",acc,'%',TC_NRM);
     }
 
-    //Conditional statements based on the random characters from function rand_mode
-    if(gmode=='n')
-    {
-        // score_save(1,&wpm,&acc,&netwpm,-1);
-    }
 
     if(gmode=='s')
     {
@@ -257,13 +214,9 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     else if(gmode=='b')
     { 
         printf("\nYour Score was: %s%d%s",TC_GRN,BBscore,TC_NRM);
-        // score_save(2,&wpm,&acc,&netwpm,BBscore);
     }
     problem_keys_analysis();
-    //Delaying the script execution based on operating system being 
-    //Windows or Linux
     term_sleep(1500);
-    //To continue after results
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
     clear_instream();
     getch();

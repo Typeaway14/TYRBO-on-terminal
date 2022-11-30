@@ -1,25 +1,17 @@
-//This file contains the definitions of the functions defined in type_content.h
-//Typing related functions can be found here
-//For further details about a particular function, refer to documentation in respective header files.
 #include<stdio.h>
-#include<string.h> //includes string.h that contains string manipulation functions like strcmp() strlen()
+#include<string.h>
 #include<time.h>
 #include<stdlib.h>
 #include"../lib/type_structures.h"
-#include"../lib/type_content.h"//includes the user defined type_content.h header file
+#include"../lib/type_content.h"
 #include"../lib/tc.h"
 #include"../lib/art.h"
 #include"../lib/misc.h"
 #ifdef _WIN32
-    #include<windows.h>//includes windows.h that contains functions like Sleep()
-    #include<conio.h>//includes conio.h that contains functions like getch()
+    #include<windows.h>
+    #include<conio.h>
 #endif
-// SCORE scores[100];
-// int score_n;
-// FILE *score_fp;
 
-//Function to return random strings from a file
-//with the number of lines of the file as a parameter
 char* rand_string(char* fname,int charno,char* sent)
 {
     FILE *fp=fopen(fname,"r");
@@ -35,11 +27,8 @@ char* rand_string(char* fname,int charno,char* sent)
     }
     fseek(fp,0,SEEK_SET);
     srand(time(NULL));
-    int r=0;
-    while(!(r>0))
-    {
-        r=rand() % lines;
-    }
+    int r=(rand() % lines)+1;;
+
     for(int i=0;fp!=NULL && i<r;i++)
     {
         fgets(sent,charno,fp);
@@ -48,25 +37,16 @@ char* rand_string(char* fname,int charno,char* sent)
     return sent;
 }
 
-//Function to return a character based on a random parameter
-//ranging from 0 to 3
 char rand_mode()
 {
-    //seeds the random number generator used by the function rand with 
-    //seed as time(NULL) returns the integer value to be used as seed    
     srand(time(NULL));
-
-    //int variable r to store random variable in an iteration
     int r=0;
 
-    //Loop to iterate until r is greater than 0
     while(!(r>0))
     {
-        //r is assigned to a random number from 0 to 3 of lines in fpcount 
         r=rand() % 3;
     }
 
-    //Conditional statement to return character based on random number from 0-3
     switch(r)
     {
         case 1:
@@ -80,36 +60,20 @@ char rand_mode()
     }
 }
 
-//Function to display type utilizing type_input function
 int single_type_disp( char* p,int size, char gmode)
 {
     TC_CLRSCR();
-    char tmp[size];
-    strcpy(tmp,p);
     int x=0,y=0,rows=0,columns=0;
     coord_details(&rows,&columns,&x,&y,size);
     TC_CLRSCR();
     TC_MOVE_CURSOR(x,y);
     if(p==NULL)
         return -1;
-    for(int i=1;*p;i++)
-    {
-        if(i==columns-1)
-        {
-            i=1;
-            TC_MOVE_CURSOR(x,++y);
-            strcat(tmp,"  ");
-        }
-        // 
-        printf("%c\xDB",*(p++));
-        // 
-        printf("\b \b");
-    }
+    printf("%s", p);
     TC_MOVE_CURSOR(x,y);
-    return single_type_input(tmp,size,gmode);
+    return single_type_input(p,size,gmode);
 }
 
-// //Function to check typing input 
 int single_type_input(char* p,int size,char gmode)
 {
     clear_instream();
@@ -136,9 +100,6 @@ int single_type_input(char* p,int size,char gmode)
     return 1;
 }
 
-//dll implementation code, will be moved to other file later
-//Function to copy code from the file and copy it onto the
-//place to be typed on
 void type_launch(char* diff,char* sent,char gmode)
 {
     rand_string(diff,300,sent);
@@ -156,7 +117,6 @@ int type_disp(int size, char gmode)
     return type_input(size,gmode);
 }
 
-//Function to check typing input 
 int type_input(int size,char gmode)
 {
     clear_instream();
@@ -254,26 +214,11 @@ int type_input(int size,char gmode)
     {    
         TC_CLRSCR();
         t = clock() - t;
-        float time_taken = ((float)t)/CLOCKS_PER_SEC; // calculate the elapsed time
-        #ifdef __linux__
+        float time_taken = ((float)t)/CLOCKS_PER_SEC;
+        #if defined(__linux__) || defined(__APPLE__)
             time_taken= ((time_taken)*1000)/2;
         #endif
         score(time_taken,count,size,gmode,BBscore);
     }
     return 1;
 }
-
-// void score_save(int mode, float *wpm, float *acc, float *netwpm, int BBscore)
-// {
-//     open_scorefile();
-//     strcpy(scores[score_n].date,__DATE__);
-//     strcpy(scores[score_n].time,__TIME__);
-//     scores[score_n].gmode=mode;
-//     scores[score_n].wpm=*wpm;
-//     scores[score_n].accuracy=*acc;
-//     scores[score_n].netwpm=*netwpm;
-//     scores[score_n].BBscore=BBscore;
-//     score_n++;
-//     // open_scorefile();
-//     write_score(mode,wpm,acc,netwpm,BBscore);
-// }

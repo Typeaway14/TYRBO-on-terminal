@@ -2,10 +2,10 @@
 #define TC_M
 #ifdef _WIN32
     #include<windows.h>
-#elif __linux__
+#elif defined(__linux__) || defined(__APPLE__)
     #include<sys/ioctl.h>
 #endif
-int termsize(int *rows,int *columns);
+void termsize(int *rows,int *columns);
 void coord_details(int *rows, int* columns,int *x,int *y,int size);
 void term_sleep(int);
 void clear_instream();

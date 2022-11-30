@@ -1,4 +1,3 @@
-//The client code that contains the main function
 #include<stdio.h>
 #include"../lib/tc.h"
 #include"../lib/type_content.h"
@@ -40,12 +39,12 @@ int main(int argc,char** argv)
     if(argc>=2)
     {
         #ifdef _WIN32
-            if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
+            if(!(strcmp(argv[1],"init")))
             {
                 system("init_terminal.bat");
             }
-        #elif __linux__
-            if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
+        #elif defined(__linux__) || defined(__APPLE__)
+            if(!(strcmp(argv[1],"init")))
             {
                 printf("Operation successful! You can use TYRBO normally now\n");
                 exit(0);
@@ -77,8 +76,6 @@ int main(int argc,char** argv)
     TC_CLRSCR();
     art_disp("resources/art/TYRBO.txt");
     printf("\e[?25h");
-    // print_stk();
-    // getch();
     free_structures();
     TC_CLRSCR();
     TC_MOVE_CURSOR(0,0);
