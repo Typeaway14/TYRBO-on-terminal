@@ -9,7 +9,7 @@ CH_STK *stk_head=NULL;
 
 void string_push(char* sent)
 {
-    for(int i=0;i<strlen(sent)-1;i++) // -1 ensures last whitespace not added to dll
+    for(int i=0;i<strlen(sent)-1;i++)
     {
         TSTRING *tstring_tmp = (TSTRING*)malloc(sizeof(TSTRING));
         CHAR_NODE *node_tmp = (CHAR_NODE*)malloc(sizeof(CHAR_NODE));
@@ -37,16 +37,16 @@ void string_push(char* sent)
 
 void string_pop(TSTRING** trav)
 {
-    if(*trav == tstring_head)// takes care if first node is to be deleted
+    if(*trav == tstring_head)
     {
         tstring_head = tstring_head->next;
-        if(tstring_head) //if tstring_head is still a node, change the prev to null as no node before the head exists
+        if(tstring_head)
             tstring_head->prev = NULL;
     }
-    else//takes care if last node is to be deleted
+    else
     {
         (*trav)->prev->next = (*trav)->next;
-        if((*trav)->next) // takes care if middle node is to be deleted
+        if((*trav)->next)
             (*trav)->next->prev = (*trav)->prev;
     }
     free((*trav)->data);
@@ -99,7 +99,7 @@ void stk_push(char err_char)
         stk_temp->data->occurence++;
         stk_head = stk_temp;
     }
-    else if(stk_check(err_char))//stk_check to return 1 if not in stack, 0 if already in stack
+    else if(stk_check(err_char))
     {
         stk_temp->data->occurence++;
         stk_temp->next = stk_head;
@@ -129,7 +129,7 @@ int stk_check(char err_char)
     return 1;
 }
 
-void print_stk() // temp function to print stack to see if the thing works
+void print_stk()
 {
     CH_STK *trav = stk_head;
     for(int i=1;trav;i++)
