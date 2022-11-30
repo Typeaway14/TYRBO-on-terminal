@@ -98,14 +98,8 @@ int bball_dunk()
     frand=fopen("resources/Dunk_words.csv","r");
 
     srand(time(NULL));
-    int r=0;
+    int r=(rand() % 213)+1;
 
-    //Loop to iterate until r is not greater than zero
-    do
-    {
-        //r is assigned to a random number from 0 to 3 of lines in fpcount
-        r=rand() % 213;
-    } while (!r);
     char ch[1500];
     //Conditional statement to check if resources file is not equal to NULL
     if(fgets(ch,1500,frand)==NULL)
@@ -262,7 +256,6 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
     clear_instream();
     getch();
-<<<<<<< HEAD
 }
 
 void clean_and_exit()
@@ -270,8 +263,3 @@ void clean_and_exit()
     free_structures();
     exit(0);
 }
-||||||| parent of 65e0555 (Allow running on macos)
-}
-=======
-}
->>>>>>> 65e0555 (Allow running on macos)
