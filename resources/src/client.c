@@ -44,7 +44,7 @@ int main(int argc,char** argv)
             {
                 system("init_terminal.bat");
             }
-        #elif __linux__
+        #elif defined(__linux__) || defined(__APPLE__)
             if(!(strcmp(argv[1],"init")))//initialising the terminal on windows
             {
                 printf("Operation successful! You can use TYRBO normally now\n");

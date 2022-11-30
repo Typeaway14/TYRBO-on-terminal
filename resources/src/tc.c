@@ -3,11 +3,11 @@
 #include"../lib/type_content.h"
 #include <unistd.h>
 #include <stdlib.h>
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
     #include <termios.h>
 #endif
 
-int termsize(int *rows,int *columns)
+void termsize(int *rows,int *columns)
 {
     #ifdef _WIN32
         CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -15,7 +15,7 @@ int termsize(int *rows,int *columns)
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
         *columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
         *rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-    #elif __linux__
+    #elif defined(__linux__) || defined(__APPLE__)
         struct winsize w;
         ioctl(fileno(stdout), TIOCGWINSZ, &w);
         *columns = (int)(w.ws_col);
@@ -32,13 +32,13 @@ void coord_details(int *rows, int* columns, int *x, int *y, int size)
 
 void clear_instream()
 {
-    #ifdef __linux__
+    #if defined(__linux__) || defined(__APPLE__)
         int stdin_copy = dup(STDIN_FILENO);
         /* remove garbage from stdin */
         tcdrain(stdin_copy);
         tcflush(stdin_copy, TCIFLUSH);
         close(stdin_copy);
-    #elif __WIN32
+    #elif _WIN32
         CLEAR_INSTREAM;
     #endif
 
@@ -48,7 +48,7 @@ void term_sleep(int duration)
 {
     #ifdef _WIN32
         Sleep(duration);
-    #elif __linux__
+    #elif defined(__linux__) || defined(__APPLE__)
         usleep(duration*1000);
     #endif
 }

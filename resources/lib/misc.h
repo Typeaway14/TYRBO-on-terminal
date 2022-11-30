@@ -11,7 +11,7 @@ void score_save(int gmode,float *wpm,float *acc,float *netwpm,int BBscore);
 void caps_check();
 void problem_keys_analysis();
 void clean_and_exit();
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
     char getch(void);
 #endif
 #endif
