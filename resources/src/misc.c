@@ -10,12 +10,10 @@
 #ifdef _WIN32
     #include<windows.h>//includes windows.h that contains functions like Sleep()
     #include<conio.h>//includes conio.h that contains functions like getch()
-#elif __linux__
+#elif defined(__linux__) || defined(__APPLE__)
     #include<unistd.h>
     #include <termios.h>
-#endif
 
-#ifdef __linux__
     char getch(void)
     {
         char buf = 0;
@@ -79,19 +77,17 @@ void caps_check()
     }
     pclose(p);
     if (result[0] == 'o' && result[1] == 'n')
-#endif
     {
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("CAPS LOCK IS ON");
     }
-
-//Defining conditions for Linux OS to Caps
 
     else
     {
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("               ");
     }
+#endif
 }
 
 //Function to find whether 
@@ -105,11 +101,11 @@ int bball_dunk()
     int r=0;
 
     //Loop to iterate until r is not greater than zero
-    while(!(r>0))
+    do
     {
         //r is assigned to a random number from 0 to 3 of lines in fpcount
         r=rand() % 213;
-    }
+    } while (!r);
     char ch[1500];
     //Conditional statement to check if resources file is not equal to NULL
     if(fgets(ch,1500,frand)==NULL)
@@ -144,7 +140,6 @@ int bball_dunk()
             clean_and_exit();
         }
     }
-    char* tmp=tmp;
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
     term_sleep(750);
@@ -267,6 +262,7 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
     clear_instream();
     getch();
+<<<<<<< HEAD
 }
 
 void clean_and_exit()
@@ -274,3 +270,8 @@ void clean_and_exit()
     free_structures();
     exit(0);
 }
+||||||| parent of 65e0555 (Allow running on macos)
+}
+=======
+}
+>>>>>>> 65e0555 (Allow running on macos)
