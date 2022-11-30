@@ -35,11 +35,8 @@ char* rand_string(char* fname,int charno,char* sent)
     }
     fseek(fp,0,SEEK_SET);
     srand(time(NULL));
-    int r=0;
-    while(!(r>0))
-    {
-        r=rand() % lines;
-    }
+    int r=(rand() % lines)+1;;
+
     for(int i=0;fp!=NULL && i<r;i++)
     {
         fgets(sent,charno,fp);
@@ -84,29 +81,15 @@ char rand_mode()
 int single_type_disp( char* p,int size, char gmode)
 {
     TC_CLRSCR();
-    char tmp[size];
-    strcpy(tmp,p);
     int x=0,y=0,rows=0,columns=0;
     coord_details(&rows,&columns,&x,&y,size);
     TC_CLRSCR();
     TC_MOVE_CURSOR(x,y);
     if(p==NULL)
         return -1;
-    for(int i=1;*p;i++)
-    {
-        if(i==columns-1)
-        {
-            i=1;
-            TC_MOVE_CURSOR(x,++y);
-            strcat(tmp,"  ");
-        }
-        // 
-        printf("%c\xDB",*(p++));
-        // 
-        printf("\b \b");
-    }
+    printf("%s", p);
     TC_MOVE_CURSOR(x,y);
-    return single_type_input(tmp,size,gmode);
+    return single_type_input(p,size,gmode);
 }
 
 // //Function to check typing input 
@@ -262,18 +245,3 @@ int type_input(int size,char gmode)
     }
     return 1;
 }
-
-// void score_save(int mode, float *wpm, float *acc, float *netwpm, int BBscore)
-// {
-//     open_scorefile();
-//     strcpy(scores[score_n].date,__DATE__);
-//     strcpy(scores[score_n].time,__TIME__);
-//     scores[score_n].gmode=mode;
-//     scores[score_n].wpm=*wpm;
-//     scores[score_n].accuracy=*acc;
-//     scores[score_n].netwpm=*netwpm;
-//     scores[score_n].BBscore=BBscore;
-//     score_n++;
-//     // open_scorefile();
-//     write_score(mode,wpm,acc,netwpm,BBscore);
-// }
