@@ -22,53 +22,29 @@
 //with the number of lines of the file as a parameter
 char* rand_string(char* fname,int charno,char* sent)
 {
-    //Opening the file in read form
     FILE *fp=fopen(fname,"r");
-
-    //Display that Openeing of the file failed if the file has NULL content
     if(fp==NULL)
     {
-        printf("failed");
+        printf("Something Went Wrong");
+        clean_and_exit();
     }
-
-    //Opening the file in read form to count the number of lines
-    FILE *fpcount=fopen(fname,"r");
-
-    //int variable to count number of lines 
     int lines=0;
-
-    //Loop to count number of lines
-    for(;fgets(sent,300,fpcount);)
+    for(;fgets(sent,300,fp);)
     {
-        //Incrementing number of lines
         lines++;
     }
-
-    //seeds the random number generator used by the function rand with 
-    //seed as time(NULL) returns the integer value to be used as seed
+    fseek(fp,0,SEEK_SET);
     srand(time(NULL));
-
-    //int variable r to store random variable in an iteration
     int r=0;
-
-    //Loop to iterate until r is greater than 0
     while(!(r>0))
     {
-        //r is assigned to a random number from 0 to number of lines in fpcount 
         r=rand() % lines;
     }
-
-    //Loop to iterate until fp's contents are not all read and
-    //Iteration count is lesser than the random variable
     for(int i=0;fp!=NULL && i<r;i++)
     {
         fgets(sent,charno,fp);
     }
-
-    //closing file fp
     fclose(fp);
-
-    //Returning the random strings
     return sent;
 }
 
@@ -112,7 +88,6 @@ int single_type_disp( char* p,int size, char gmode)
     strcpy(tmp,p);
     int x=0,y=0,rows=0,columns=0;
     coord_details(&rows,&columns,&x,&y,size);
-    int ycopy=y;
     TC_CLRSCR();
     TC_MOVE_CURSOR(x,y);
     if(p==NULL)
@@ -122,13 +97,12 @@ int single_type_disp( char* p,int size, char gmode)
         if(i==columns-1)
         {
             i=1;
-            ycopy++;
-            TC_MOVE_CURSOR(x,ycopy);
+            TC_MOVE_CURSOR(x,++y);
             strcat(tmp,"  ");
         }
-        //
+        // 
         printf("%c\xDB",*(p++));
-        //
+        // 
         printf("\b \b");
     }
     TC_MOVE_CURSOR(x,y);
@@ -167,7 +141,7 @@ int single_type_input(char* p,int size,char gmode)
 //place to be typed on
 void type_launch(char* diff,char* sent,char gmode)
 {
-    strcpy(sent,rand_string(diff,300,sent));
+    rand_string(diff,300,sent);
     int size=strlen(sent)-1;
     trimTrailing(sent);
     string_push(sent);
@@ -229,7 +203,6 @@ int type_input(int size,char gmode)
                 trav->data->color_flag=1;
                 if(trav->data->exp_char == '_')
                     trav->data->exp_char = ' ';
-                count--;
                 string_print(size);
             }
             continue;

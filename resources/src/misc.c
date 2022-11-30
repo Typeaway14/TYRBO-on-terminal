@@ -73,7 +73,9 @@ void caps_check()
     }
     char result[8];
     if (fgets(result, 8, p) == NULL) {
-        printf("SOMETHING WENT WRONG");
+        printf("SOMETHING WENT WRONG. CHECK IF YOU HAVE XSET INSTALLED");
+        pclose(p);
+        clean_and_exit();
     }
     pclose(p);
     if (result[0] == 'o' && result[1] == 'n')
@@ -109,48 +111,40 @@ int bball_dunk()
         r=rand() % 213;
     }
     char ch[1500];
-    char tmp[6];
-
     //Conditional statement to check if resources file is not equal to NULL
     if(fgets(ch,1500,frand)==NULL)
     {
         TC_CLRSCR();
         printf("Something went wrong..\nReturning back to home page..\n");
         term_sleep(200);
+        clean_and_exit();
     } 
 
     //Converting string to token
-    char* tmp2=strtok(ch,",");
-
-    //Checking if token is NULL and copying value to tmp
-    if(tmp2!=NULL)
-    {
-        strcpy(tmp,tmp2);
-    }
+    char* tmp=strtok(ch,",");
 
     //If token is not null printing message that something went wrong and delaying
-    else
+    if(!tmp)
     {
         TC_CLRSCR();
         printf("Something went wrong..\nReturning back to home page..\n");
         term_sleep(200);
+        clean_and_exit();
     }
 
     //Loop to iterate from 0 to random value - 1
     for(int i=0;i<=r-1;i++)
     {
-        tmp2=strtok(NULL,",");
-        if(tmp2!=NULL)
-        {
-            strcpy(tmp,tmp2);
-        }
-        else
+        tmp=strtok(NULL,",");
+        if (!tmp)
         {
             TC_CLRSCR();
             printf("Something went wrong..\nReturning back to home page..\n");
             term_sleep(200);
+            clean_and_exit();
         }
     }
+    char* tmp=tmp;
     TC_CLRSCR();
     art_disp("resources/art/BASKETBALL.txt");
     term_sleep(750);
@@ -273,4 +267,10 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
     printf("\n%sPress any key to continue%s",TC_YEL,TC_NRM);
     clear_instream();
     getch();
+}
+
+void clean_and_exit()
+{
+    free_structures();
+    exit(0);
 }

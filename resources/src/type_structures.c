@@ -143,9 +143,7 @@ void print_stk() // temp function to print stack to see if the thing works
 void free_structures()
 {
     free_dll();
-    free(tstring_head);
     free_stk();
-    free(stk_head);
 }
 
 void free_dll()

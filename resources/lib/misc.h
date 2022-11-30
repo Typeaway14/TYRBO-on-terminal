@@ -10,6 +10,7 @@ int handle_wrong_case(FILE* fp,int* b,int* streak,int* count,CHAR_NODE **node,in
 void score_save(int gmode,float *wpm,float *acc,float *netwpm,int BBscore);
 void caps_check();
 void problem_keys_analysis();
+void clean_and_exit();
 #ifdef __linux__
     char getch(void);
 #endif
