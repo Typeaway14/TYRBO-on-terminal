@@ -17,7 +17,7 @@ TYRBO-on-terminal has a fair share of cool things to boast about!
   - **Lightweight:** With the entire package being under 600kb, there's no reason to NOT have it on your device!
   - **Detailed Analysis:** After every test, a result is shown with parameters such Time Taken, Raw WPM, Accuracy, Net WPM, No. of characters input, No. of characters input correctly and incorrectly, and a score for the Basketball gamemode
   - **Color Coded:** Various indicators in the game are color coded which make it easier to understand and interpret information shown to user
-  - **Fun Animations!:** Digital artists from the future were brought back in time to work on the art that is displayed along various stages of the game(Look out for the Basketball ones! Those are pretty neat!)
+  - **Fun Animations!:** ASCII Art is displayed along various stages of the game(Look out for the Basketball ones! Those are pretty neat!)
   - **Customizable:** Want a bunch of wacky custom strings to type or show your friends? All the strings are in simple `.txt` files. Edit them as you like!
   
 ## Get Started
