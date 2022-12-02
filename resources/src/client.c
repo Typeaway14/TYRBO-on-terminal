@@ -2,9 +2,11 @@
 #include"../lib/tc.h"
 #include"../lib/type_content.h"
 #include"../lib/type_structures.h"
+#include"../lib/signal_handlers.h"
 #include"../lib/art.h"
 #include<string.h>
 #include<stdlib.h>
+#include<signal.h>
 #ifdef __WIN32
     #include<conio.h>
 #endif
@@ -13,6 +15,7 @@ void color_help();
 
 int main(int argc,char** argv)
 {
+    signal_handler();
     char sent[300];
     char gmode;
     char diff[100]="resources/test_strings/easy.txt";

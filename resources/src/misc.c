@@ -4,6 +4,7 @@
 #include"../lib/type_content.h"
 #include"../lib/type_structures.h"
 #include"../lib/art.h"
+#include"signal.h"
 #include<string.h>
 #include<time.h>
 #include<stdlib.h>
@@ -225,5 +226,8 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
 void clean_and_exit()
 {
     free_structures();
-    exit(0);
+    pid_t pid;
+    pid=getpid();
+    if(kill(pid,SIGINT))
+        exit(0);
 }
