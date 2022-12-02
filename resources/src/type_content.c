@@ -220,5 +220,6 @@ int type_input(int size,char gmode)
         #endif
         score(time_taken,count,size,gmode,BBscore);
     }
+    fclose(fp);
     return 1;
 }
