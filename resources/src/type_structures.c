@@ -19,7 +19,7 @@ void string_push(char* sent)
         node_tmp->color_flag=1;
         node_tmp->exp_char=sent[i];
         tstring_tmp->data=node_tmp;
-        if(tstring_head==NULL)
+        if(!tstring_head)
         {
             tstring_head=tstring_tmp;
         }

@@ -12,6 +12,8 @@
         "type_content.h": "c",
         "windows.h": "c",
         "stdio.h": "c",
-        "termios.h": "c"
+        "termios.h": "c",
+        "signal_handlers.h": "c",
+        "type_structures.h": "c"
     }
 }

@@ -1,4 +1,4 @@
-tyrbo.exe: type_content.o client.o tc.o type_structures.o art.o misc.o signal_handlers.o
+tyrbo.exe: type_structures.o type_content.o client.o tc.o art.o misc.o signal_handlers.o
 	gcc -g resources/bin/client.o resources/bin/type_content.o resources/bin/misc.o resources/bin/art.o resources/bin/type_structures.o resources/bin/tc.o resources/bin/signal_handlers.o -o tyrbo
 type_content.o: resources/src/type_content.c
 	gcc -c -g resources/src/type_content.c -o resources/bin/type_content.o
