@@ -1,6 +1,7 @@
 if [[ $1 == '' ]]; then
     echo compiling tyrbo...
     make -f resources/lib/mktyrbo.mk
+    echo ---
     echo to run tyrbo: ./tyrbo
 elif [[ $1 == 'clean' ]]; then
     echo cleaning intermediate and target files...
