@@ -4,13 +4,14 @@
 #include"../lib/type_content.h"
 #include"../lib/type_structures.h"
 #include"../lib/art.h"
-#include"signal.h"
+#include<signal.h>
 #include<string.h>
 #include<time.h>
 #include<stdlib.h>
 #ifdef _WIN32
     #include<windows.h>
     #include<conio.h>
+    #include<sys/types.h>
 #elif defined(__linux__) || defined(__APPLE__)
     #include<unistd.h>
     #include <termios.h>
@@ -76,6 +77,7 @@ void caps_check()
     }
     pclose(p);
     if (result[0] == 'o' && result[1] == 'n')
+#endif
     {
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("CAPS LOCK IS ON");
@@ -86,7 +88,6 @@ void caps_check()
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("               ");
     }
-#endif
 }
 
 int bball_dunk()
@@ -226,8 +227,10 @@ void score(float time_taken,int count,int size,char gmode,int BBscore)
 void clean_and_exit()
 {
     free_structures();
+    #if defined(__linux__) || defined(__APPLE__)
     pid_t pid;
     pid=getpid();
     if(kill(pid,SIGINT))
         exit(0);
+    #endif
 }
