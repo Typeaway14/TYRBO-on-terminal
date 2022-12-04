@@ -26,11 +26,12 @@ Wanna use TYRBO-on-terminal for yourself?
 > Note: Check [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) for help on how to clone a repo using the git        commands.
   2. Launch a terminal in the directory you just cloned into and type in these commands to compile and get all the code ready
 - For Windows: `mktyrbo`
-- For Linux: `./mktyrbo`
+- For Unix/Linux: `./mktyrbo`
   
 3. Notice a `tyrbo.exe` (or) `tyrbo.out` has been created in the directory.
   4. In the same terminal, type in the following commands to get started with TYRBO-on-terminal!
-`tyrbo` or `./tyrbo`
+`tyrbo` or `./tyrbo` 
+> Note: If you're on Windows, you may have to run the command `tyrbo init` after compilation to be able to run tyrbo properly
  
  
 ## Contribution
