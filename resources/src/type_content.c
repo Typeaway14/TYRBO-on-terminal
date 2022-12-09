@@ -149,6 +149,8 @@ int type_input(int size,char gmode)
         {
             TC_MOVE_CURSOR(x,y);
             TSTRING* next_trav = trav->next;
+            if(trav->data->exp_char == ' ')
+                trav->data->exp_char = '_';
             string_pop(&trav);
             trav = next_trav;
             string_print(size);

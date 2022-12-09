@@ -35,23 +35,24 @@ void string_push(char* sent)
     }
 }
 
-void string_pop(TSTRING** trav)
+void string_pop(TSTRING** trav)//code commented for temporary implementation of green text instead of disappearing text
 {
-    if(*trav == tstring_head)
-    {
-        tstring_head = tstring_head->next;
-        if(tstring_head)
-            tstring_head->prev = NULL;
-    }
-    else
-    {
-        (*trav)->prev->next = (*trav)->next;
-        if((*trav)->next)
-            (*trav)->next->prev = (*trav)->prev;
-    }
-    free((*trav)->data);
-    free(*trav);
-    *trav=NULL;
+    // if(*trav == tstring_head)
+    // {
+    //     tstring_head = tstring_head->next;
+    //     if(tstring_head)
+    //         tstring_head->prev = NULL;
+    // }
+    // else
+    // {
+    //     (*trav)->prev->next = (*trav)->next;
+    //     if((*trav)->next)
+    //         (*trav)->next->prev = (*trav)->prev;
+    // }
+    // free((*trav)->data);
+    // free(*trav);
+    // *trav=NULL;
+    (*trav)->data->color_flag=2;
 }
 
 void string_print(int size)
@@ -73,9 +74,14 @@ void string_print(int size)
                 fprintf(stdout,"%c",trav->data->exp_char);
                 fflush(stdout);
             }
-            else
+            else if(trav->data->color_flag == 0)
             {
                 fprintf(stdout,"%s%c%s",TC_RED,trav->data->exp_char,TC_NRM);
+                fflush(stdout);
+            }
+            else if(trav->data->color_flag == 2)
+            {
+                fprintf(stdout,"%s%c%s",TC_GRN,trav->data->exp_char,TC_NRM);
                 fflush(stdout);
             }
             trav=trav->next;
