@@ -78,6 +78,7 @@ void caps_check()
     pclose(p);
     if (result[0] == 'o' && result[1] == 'n')
 #endif
+#ifndef __APPLE__
     {
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("CAPS LOCK IS ON");
@@ -88,6 +89,7 @@ void caps_check()
         TC_MOVE_CURSOR((columns-16)/2,(rows/2)+4);
         printf("               ");
     }
+#endif
 }
 
 int bball_dunk()
