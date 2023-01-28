@@ -215,9 +215,9 @@ int type_input(int size,char gmode)
 
 void dunk_decide(int* BBscore, int* b,int size , int x, int y,  FILE* fp)
 {
-    int survived = 0;
+    int dunked = 0;
     #ifdef __WIN32
-        survived = bball_dunk();
+        dunked = bball_dunk();
     #elif defined(__linux__) || defined(__APPLE__)
         int fd[2]; // 0 for reading 1 for writing
         if(pipe(fd) == -1)
@@ -230,9 +230,9 @@ void dunk_decide(int* BBscore, int* b,int size , int x, int y,  FILE* fp)
         {
             close(fd[0]);//close read stream coz not needed
             alarm(5);
-            survived = bball_dunk();
+            dunked = bball_dunk();
             alarm(0);
-            write(fd[1],&survived,sizeof(survived));
+            write(fd[1],&dunked,sizeof(dunked));
             close(fd[1]);//closing write stream coz done writing
             exit(0);
         }
@@ -240,7 +240,7 @@ void dunk_decide(int* BBscore, int* b,int size , int x, int y,  FILE* fp)
         {
             wait(NULL);
             close(fd[1]);//closing write stream coz not needed
-            read(fd[0],&survived,sizeof(survived));
+            read(fd[0],&dunked,sizeof(dunked));
             close(fd[0]);//closing read stream coz done reading     
         }
         else
@@ -249,7 +249,7 @@ void dunk_decide(int* BBscore, int* b,int size , int x, int y,  FILE* fp)
         }
     #endif
 
-    if(survived)
+    if(dunked)
     {
         art_disp("resources/art/BB_Dunk.txt");
         (*BBscore)+=25;
