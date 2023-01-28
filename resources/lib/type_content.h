@@ -8,4 +8,5 @@ int type_input(int,char);
 char* rand_string(char* ,int ,char*);
 void type_launch(char*,char*,char );
 char rand_mode();
+void dunk_decide(int* BBscore, int* b,int size , int x, int y,  FILE* fp);
 #endif

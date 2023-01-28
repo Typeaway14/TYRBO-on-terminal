@@ -10,6 +10,10 @@
 #ifdef _WIN32
     #include<windows.h>
     #include<conio.h>
+#elif defined(__linux__) || defined(__APPLE__)
+    #include<unistd.h>
+    #include<sys/wait.h>
+    #include<signal.h>
 #endif
 
 char* rand_string(char* fname,int charno,char* sent)
@@ -191,24 +195,7 @@ int type_input(int size,char gmode)
 
             if(streak==70)
             {
-                if(bball_dunk())
-                {
-                    art_disp("resources/art/BB_Dunk.txt");
-                    BBscore+=25;
-                }
-                else
-                {
-                    art_disp("resources/art/OOF.txt");
-                    BBscore+=5;
-                }
-                fseek(fp,0,SEEK_SET);
-                term_sleep(1000);
-                clear_instream();
-                TC_CLRSCR();
-                caps_check();
-                TC_MOVE_CURSOR(x,y);
-                string_print(size);
-                b=1;
+                dunk_decide(&BBscore,&b,size,x,y,fp);
             }
         }
     }
@@ -224,4 +211,60 @@ int type_input(int size,char gmode)
     }
     fclose(fp);
     return 1;
+}
+
+void dunk_decide(int* BBscore, int* b,int size , int x, int y,  FILE* fp)
+{
+    int survived = 0;
+    #ifdef __WIN32
+        survived = bball_dunk();
+    #elif defined(__linux__) || defined(__APPLE__)
+        int fd[2]; // 0 for reading 1 for writing
+        if(pipe(fd) == -1)
+        {
+            printf("Pipe failed! Exiting safely...");
+            exit(0);
+        }
+        pid_t proc_id = fork();
+        if(proc_id == 0)
+        {
+            close(fd[0]);//close read stream coz not needed
+            alarm(5);
+            survived = bball_dunk();
+            alarm(0);
+            write(fd[1],&survived,sizeof(survived));
+            close(fd[1]);//closing write stream coz done writing
+            exit(0);
+        }
+        else if(proc_id > 0)
+        {
+            wait(NULL);
+            close(fd[1]);//closing write stream coz not needed
+            read(fd[0],&survived,sizeof(survived));
+            close(fd[0]);//closing read stream coz done reading     
+        }
+        else
+        {
+            printf("Fork function failed\n");
+        }
+    #endif
+
+    if(survived)
+    {
+        art_disp("resources/art/BB_Dunk.txt");
+        (*BBscore)+=25;
+    }
+    else
+    {
+        art_disp("resources/art/OOF.txt");
+        (*BBscore)+=5;
+    }
+    fseek(fp,0,SEEK_SET);
+    term_sleep(1000);
+    clear_instream();
+    TC_CLRSCR();
+    caps_check();
+    TC_MOVE_CURSOR(x,y);
+    string_print(size);
+    *b=1;
 }
